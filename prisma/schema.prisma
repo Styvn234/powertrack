@@ -4,29 +4,42 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id               String      @id
-  name             String
-  email            String      @unique
-  emailVerified    Boolean     @default(false)
-  image            String?
-  createdAt        DateTime    @default(now())
-  updatedAt        DateTime    @updatedAt
-  twoFactorEnabled Boolean?    @default(false)
-  role             String?
-  banned           Boolean?    @default(false)
-  banReason        String?
-  banExpires       DateTime?
-  phoneNumber      String?
-  deletedAt        DateTime?
-  accounts         Account[]
-  sessions         Session[]
-  twofactors       TwoFactor[]
+  id                                                       String                        @id
+  name                                                     String
+  email                                                    String                        @unique
+  emailVerified                                            Boolean                       @default(false)
+  image                                                    String?
+  phoneNumber                                              String?
+  deletedAt                                                DateTime?
+  createdAt                                                DateTime                      @default(now())
+  updatedAt                                                DateTime                      @updatedAt
+  twoFactorEnabled                                         Boolean?                      @default(false)
+  banned                                                   Boolean?                      @default(false)
+  banReason                                                String?
+  banExpires                                               DateTime?
+  branchId                                                 String?
+  role                                                     UserRole                      @default(CLIENT)
+  accounts                                                 Account[]
+  application_application_clientUserIdTouser               application?                  @relation("application_clientUserIdTouser")
+  application_application_reviewedByIdTouser               application[]                 @relation("application_reviewedByIdTouser")
+  audit_log                                                audit_log[]
+  client_subscription                                      client_subscription?
+  device                                                   device[]
+  payment_submission_payment_submission_reviewedByIdTouser payment_submission[]          @relation("payment_submission_reviewedByIdTouser")
+  payment_submission_payment_submission_userIdTouser       payment_submission[]          @relation("payment_submission_userIdTouser")
+  request_log                                              RequestLog[]
+  sessions                                                 Session[]
+  support_ticket_support_ticket_assignedToIdTouser         support_ticket[]              @relation("support_ticket_assignedToIdTouser")
+  support_ticket_support_ticket_userIdTouser               support_ticket[]              @relation("support_ticket_userIdTouser")
+  support_ticket_message                                   support_ticket_message[]
+  system_notification_setting                              system_notification_setting[]
+  twofactors                                               TwoFactor[]
+  branch                                                   branch?                       @relation(fields: [branchId], references: [id])
 
   @@map("user")
 }
@@ -99,17 +112,355 @@ model RequestLog {
   query     Json?
   headers   Json
   payload   Json?
+  userId    String?
   createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
 
   @@index([createdAt])
+  @@index([userId])
   @@map("request_log")
 }
 
 model Settings {
-  id                   String   @id @default(cuid())
-  pricePerKilowattHour Float
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
+  id                         String   @id @default(cuid())
+  pricePerKilowattHour       Float
+  platformName               String?
+  supportEmail               String?
+  maintenanceMode            Boolean  @default(false)
+  downpaymentAmountPerDevice Int      @default(1500)
+  loginLockoutThreshold      Int      @default(5)
+  createdAt                  DateTime @default(now())
+  updatedAt                  DateTime @updatedAt
 
   @@map("settings")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model application {
+  id                                  String               @id
+  ticketNumber                        String               @unique
+  fullName                            String
+  email                               String
+  phoneNumber                         String
+  planId                              String
+  deviceCount                         Int
+  specialRequirements                 String?
+  proofOfBillingFileName              String?
+  proofOfBillingUrl                   String?
+  proofOfBillingMimeType              String?
+  validIdFrontFileName                String?
+  validIdFrontUrl                     String?
+  validIdFrontMimeType                String?
+  validIdBackFileName                 String?
+  validIdBackUrl                      String?
+  validIdBackMimeType                 String?
+  status                              ApplicationStatus    @default(SUBMITTED)
+  statusReason                        String?
+  reviewedById                        String?
+  reviewedAt                          DateTime?
+  approvedAt                          DateTime?
+  rejectedAt                          DateTime?
+  submittedAt                         DateTime             @default(now())
+  updatedAt                           DateTime
+  branchId                            String?
+  clientUserId                        String?              @unique
+  branchSnapshots                     Json?
+  branch                              branch?              @relation(fields: [branchId], references: [id])
+  user_application_clientUserIdTouser User?                @relation("application_clientUserIdTouser", fields: [clientUserId], references: [id])
+  subscription_plan                   subscription_plan    @relation(fields: [planId], references: [id])
+  user_application_reviewedByIdTouser User?                @relation("application_reviewedByIdTouser", fields: [reviewedById], references: [id])
+  client_subscription                 client_subscription?
+  payment_submission                  payment_submission[]
+
+  @@index([email])
+  @@index([status])
+  @@index([submittedAt])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model audit_log {
+  id          String          @id
+  actorId     String?
+  entityType  AuditEntityType
+  entityId    String
+  action      String
+  beforeState Json?
+  afterState  Json?
+  metadata    Json?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime        @default(now())
+  user        User?           @relation(fields: [actorId], references: [id])
+
+  @@index([actorId])
+  @@index([createdAt])
+  @@index([entityType, entityId])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model branch {
+  id           String        @id
+  name         String
+  code         String        @unique
+  address      String?
+  city         String?
+  province     String?
+  contactName  String?
+  contactEmail String?
+  contactPhone String?
+  status       BranchStatus  @default(ACTIVE)
+  notes        String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime
+  application  application[]
+  device       device[]
+  user         User[]
+
+  @@index([status])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model client_subscription {
+  id                  String               @id
+  userId              String               @unique
+  planId              String
+  sourceApplicationId String?              @unique
+  deviceCap           Int
+  monthlyPrice        Int
+  billingCycleDay     Int?
+  nextDueDate         DateTime?
+  status              String               @default("active")
+  startedAt           DateTime             @default(now())
+  updatedAt           DateTime
+  subscription_plan   subscription_plan    @relation(fields: [planId], references: [id])
+  application         application?         @relation(fields: [sourceApplicationId], references: [id])
+  user                User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  device              device[]
+  payment_submission  payment_submission[]
+
+  @@index([nextDueDate])
+  @@index([status])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model device {
+  id                  String               @id
+  serialNumber        String               @unique
+  name                String
+  locationLabel       String?
+  tags                Json?
+  status              DeviceStatus         @default(ACTIVE)
+  firmwareVersion     String?
+  lastSeenAt          DateTime?
+  installedAt         DateTime?
+  decommissionedAt    DateTime?
+  branchId            String?
+  userId              String?
+  subscriptionId      String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime
+  branch              branch?              @relation(fields: [branchId], references: [id])
+  client_subscription client_subscription? @relation(fields: [subscriptionId], references: [id])
+  user                User?                @relation(fields: [userId], references: [id])
+
+  @@index([branchId])
+  @@index([status])
+  @@index([userId])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model payment_submission {
+  id                                         String               @id
+  referenceNumber                            String               @unique
+  billingMonth                               String
+  amount                                     Int
+  proofFileName                              String?
+  proofFileUrl                               String?
+  proofMimeType                              String?
+  status                                     PaymentStatus        @default(PENDING_VERIFICATION)
+  submittedAt                                DateTime             @default(now())
+  reviewedAt                                 DateTime?
+  reviewedById                               String?
+  reviewNote                                 String?
+  userId                                     String?
+  subscriptionId                             String?
+  applicationId                              String?
+  createdAt                                  DateTime             @default(now())
+  updatedAt                                  DateTime
+  application                                application?         @relation(fields: [applicationId], references: [id])
+  user_payment_submission_reviewedByIdTouser User?                @relation("payment_submission_reviewedByIdTouser", fields: [reviewedById], references: [id])
+  client_subscription                        client_subscription? @relation(fields: [subscriptionId], references: [id])
+  user_payment_submission_userIdTouser       User?                @relation("payment_submission_userIdTouser", fields: [userId], references: [id])
+
+  @@unique([userId, billingMonth])
+  @@index([referenceNumber])
+  @@index([status])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model subscription_plan {
+  id                  String                @id
+  name                String                @unique
+  slug                String                @unique
+  monthlyPrice        Int
+  deviceCap           Int
+  description         String?
+  features            Json?
+  isPopular           Boolean               @default(false)
+  isActive            Boolean               @default(true)
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime
+  application         application[]
+  client_subscription client_subscription[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model support_ticket {
+  id                                     String                   @id
+  ticketNumber                           String                   @unique
+  name                                   String
+  email                                  String
+  subject                                String
+  category                               String
+  message                                String
+  status                                 TicketStatus             @default(OPEN)
+  priority                               TicketPriority           @default(NORMAL)
+  userId                                 String?
+  assignedToId                           String?
+  resolvedAt                             DateTime?
+  closedAt                               DateTime?
+  createdAt                              DateTime                 @default(now())
+  updatedAt                              DateTime
+  user_support_ticket_assignedToIdTouser User?                    @relation("support_ticket_assignedToIdTouser", fields: [assignedToId], references: [id])
+  user_support_ticket_userIdTouser       User?                    @relation("support_ticket_userIdTouser", fields: [userId], references: [id])
+  support_ticket_message                 support_ticket_message[]
+
+  @@index([assignedToId])
+  @@index([category])
+  @@index([status])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model support_ticket_message {
+  id             String         @id
+  ticketId       String
+  authorId       String?
+  authorName     String?
+  message        String
+  isInternal     Boolean        @default(false)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime
+  user           User?          @relation(fields: [authorId], references: [id])
+  support_ticket support_ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  @@index([ticketId])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model system_notification_setting {
+  id                   String   @id
+  emailEnabled         Boolean  @default(true)
+  pushEnabled          Boolean  @default(true)
+  inAppEnabled         Boolean  @default(true)
+  newApplicationAlerts Boolean  @default(true)
+  paymentAlerts        Boolean  @default(true)
+  deviceAlerts         Boolean  @default(true)
+  ticketAlerts         Boolean  @default(true)
+  quietHoursStart      String?
+  quietHoursEnd        String?
+  updatedById          String?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime
+  user                 User?    @relation(fields: [updatedById], references: [id])
+}
+
+model ContactMessage {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  inquiryType String
+  message     String
+  createdAt   DateTime @default(now())
+
+  @@index([email])
+  @@map("contact_message")
+}
+
+model preorder_application {
+  id                     String   @id @default(cuid())
+  fullName               String
+  email                  String
+  phoneNumber            String
+  plan                   String
+  deviceCount            Int
+  branches               Json?
+  specialRequirements    String?
+  proofBillingFileName   String?
+  validIdFrontFileName   String?
+  validIdBackFileName    String?
+  createdAt              DateTime @default(now())
+
+  @@index([email])
+  @@index([createdAt])
+  @@map("preorder_application")
+}
+
+enum ApplicationStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  AWAITING_DOWNPAYMENT
+  ACTIVE
+}
+
+enum AuditEntityType {
+  USER
+  APPLICATION
+  PAYMENT_SUBMISSION
+  DEVICE
+  SUPPORT_TICKET
+  BRANCH
+  SUBSCRIPTION_PLAN
+  CLIENT_SUBSCRIPTION
+  SETTINGS
+}
+
+enum BranchStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum DeviceStatus {
+  ACTIVE
+  OFFLINE
+  WARNING
+  DECOMMISSIONED
+}
+
+enum PaymentStatus {
+  PENDING_VERIFICATION
+  VERIFIED
+  REJECTED
+}
+
+enum TicketPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  ESCALATED
+  RESOLVED
+  CLOSED
+}
+
+enum UserRole {
+  ADMIN
+  SUPERADMIN
+  CLIENT
 }

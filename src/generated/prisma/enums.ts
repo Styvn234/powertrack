@@ -9,7 +9,85 @@
 * 🟢 You can import this file directly.
 */
 
+export const ApplicationStatus = {
+  SUBMITTED: 'SUBMITTED',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  AWAITING_DOWNPAYMENT: 'AWAITING_DOWNPAYMENT',
+  ACTIVE: 'ACTIVE'
+} as const
+
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const AuditEntityType = {
+  USER: 'USER',
+  APPLICATION: 'APPLICATION',
+  PAYMENT_SUBMISSION: 'PAYMENT_SUBMISSION',
+  DEVICE: 'DEVICE',
+  SUPPORT_TICKET: 'SUPPORT_TICKET',
+  BRANCH: 'BRANCH',
+  SUBSCRIPTION_PLAN: 'SUBSCRIPTION_PLAN',
+  CLIENT_SUBSCRIPTION: 'CLIENT_SUBSCRIPTION',
+  SETTINGS: 'SETTINGS'
+} as const
+
+export type AuditEntityType = (typeof AuditEntityType)[keyof typeof AuditEntityType]
+
+
+export const BranchStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+} as const
+
+export type BranchStatus = (typeof BranchStatus)[keyof typeof BranchStatus]
+
+
+export const DeviceStatus = {
+  ACTIVE: 'ACTIVE',
+  OFFLINE: 'OFFLINE',
+  WARNING: 'WARNING',
+  DECOMMISSIONED: 'DECOMMISSIONED'
+} as const
+
+export type DeviceStatus = (typeof DeviceStatus)[keyof typeof DeviceStatus]
+
+
+export const PaymentStatus = {
+  PENDING_VERIFICATION: 'PENDING_VERIFICATION',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const TicketPriority = {
+  LOW: 'LOW',
+  NORMAL: 'NORMAL',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+} as const
+
+export type TicketPriority = (typeof TicketPriority)[keyof typeof TicketPriority]
+
+
+export const TicketStatus = {
+  OPEN: 'OPEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  ESCALATED: 'ESCALATED',
+  RESOLVED: 'RESOLVED',
+  CLOSED: 'CLOSED'
+} as const
+
+export type TicketStatus = (typeof TicketStatus)[keyof typeof TicketStatus]
+
+
+export const UserRole = {
+  ADMIN: 'ADMIN',
+  SUPERADMIN: 'SUPERADMIN',
+  CLIENT: 'CLIENT'
+} as const
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]

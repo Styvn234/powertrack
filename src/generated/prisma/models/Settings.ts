@@ -28,15 +28,24 @@ export type AggregateSettings = {
 
 export type SettingsAvgAggregateOutputType = {
   pricePerKilowattHour: number | null
+  downpaymentAmountPerDevice: number | null
+  loginLockoutThreshold: number | null
 }
 
 export type SettingsSumAggregateOutputType = {
   pricePerKilowattHour: number | null
+  downpaymentAmountPerDevice: number | null
+  loginLockoutThreshold: number | null
 }
 
 export type SettingsMinAggregateOutputType = {
   id: string | null
   pricePerKilowattHour: number | null
+  platformName: string | null
+  supportEmail: string | null
+  maintenanceMode: boolean | null
+  downpaymentAmountPerDevice: number | null
+  loginLockoutThreshold: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +53,11 @@ export type SettingsMinAggregateOutputType = {
 export type SettingsMaxAggregateOutputType = {
   id: string | null
   pricePerKilowattHour: number | null
+  platformName: string | null
+  supportEmail: string | null
+  maintenanceMode: boolean | null
+  downpaymentAmountPerDevice: number | null
+  loginLockoutThreshold: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -51,6 +65,11 @@ export type SettingsMaxAggregateOutputType = {
 export type SettingsCountAggregateOutputType = {
   id: number
   pricePerKilowattHour: number
+  platformName: number
+  supportEmail: number
+  maintenanceMode: number
+  downpaymentAmountPerDevice: number
+  loginLockoutThreshold: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -59,15 +78,24 @@ export type SettingsCountAggregateOutputType = {
 
 export type SettingsAvgAggregateInputType = {
   pricePerKilowattHour?: true
+  downpaymentAmountPerDevice?: true
+  loginLockoutThreshold?: true
 }
 
 export type SettingsSumAggregateInputType = {
   pricePerKilowattHour?: true
+  downpaymentAmountPerDevice?: true
+  loginLockoutThreshold?: true
 }
 
 export type SettingsMinAggregateInputType = {
   id?: true
   pricePerKilowattHour?: true
+  platformName?: true
+  supportEmail?: true
+  maintenanceMode?: true
+  downpaymentAmountPerDevice?: true
+  loginLockoutThreshold?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -75,6 +103,11 @@ export type SettingsMinAggregateInputType = {
 export type SettingsMaxAggregateInputType = {
   id?: true
   pricePerKilowattHour?: true
+  platformName?: true
+  supportEmail?: true
+  maintenanceMode?: true
+  downpaymentAmountPerDevice?: true
+  loginLockoutThreshold?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -82,6 +115,11 @@ export type SettingsMaxAggregateInputType = {
 export type SettingsCountAggregateInputType = {
   id?: true
   pricePerKilowattHour?: true
+  platformName?: true
+  supportEmail?: true
+  maintenanceMode?: true
+  downpaymentAmountPerDevice?: true
+  loginLockoutThreshold?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -176,6 +214,11 @@ export type SettingsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 export type SettingsGroupByOutputType = {
   id: string
   pricePerKilowattHour: number
+  platformName: string | null
+  supportEmail: string | null
+  maintenanceMode: boolean
+  downpaymentAmountPerDevice: number
+  loginLockoutThreshold: number
   createdAt: Date
   updatedAt: Date
   _count: SettingsCountAggregateOutputType | null
@@ -206,6 +249,11 @@ export type SettingsWhereInput = {
   NOT?: Prisma.SettingsWhereInput | Prisma.SettingsWhereInput[]
   id?: Prisma.StringFilter<"Settings"> | string
   pricePerKilowattHour?: Prisma.FloatFilter<"Settings"> | number
+  platformName?: Prisma.StringNullableFilter<"Settings"> | string | null
+  supportEmail?: Prisma.StringNullableFilter<"Settings"> | string | null
+  maintenanceMode?: Prisma.BoolFilter<"Settings"> | boolean
+  downpaymentAmountPerDevice?: Prisma.IntFilter<"Settings"> | number
+  loginLockoutThreshold?: Prisma.IntFilter<"Settings"> | number
   createdAt?: Prisma.DateTimeFilter<"Settings"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Settings"> | Date | string
 }
@@ -213,6 +261,11 @@ export type SettingsWhereInput = {
 export type SettingsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   pricePerKilowattHour?: Prisma.SortOrder
+  platformName?: Prisma.SortOrderInput | Prisma.SortOrder
+  supportEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  maintenanceMode?: Prisma.SortOrder
+  downpaymentAmountPerDevice?: Prisma.SortOrder
+  loginLockoutThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -223,6 +276,11 @@ export type SettingsWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.SettingsWhereInput[]
   NOT?: Prisma.SettingsWhereInput | Prisma.SettingsWhereInput[]
   pricePerKilowattHour?: Prisma.FloatFilter<"Settings"> | number
+  platformName?: Prisma.StringNullableFilter<"Settings"> | string | null
+  supportEmail?: Prisma.StringNullableFilter<"Settings"> | string | null
+  maintenanceMode?: Prisma.BoolFilter<"Settings"> | boolean
+  downpaymentAmountPerDevice?: Prisma.IntFilter<"Settings"> | number
+  loginLockoutThreshold?: Prisma.IntFilter<"Settings"> | number
   createdAt?: Prisma.DateTimeFilter<"Settings"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Settings"> | Date | string
 }, "id">
@@ -230,6 +288,11 @@ export type SettingsWhereUniqueInput = Prisma.AtLeast<{
 export type SettingsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   pricePerKilowattHour?: Prisma.SortOrder
+  platformName?: Prisma.SortOrderInput | Prisma.SortOrder
+  supportEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  maintenanceMode?: Prisma.SortOrder
+  downpaymentAmountPerDevice?: Prisma.SortOrder
+  loginLockoutThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SettingsCountOrderByAggregateInput
@@ -245,6 +308,11 @@ export type SettingsScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SettingsScalarWhereWithAggregatesInput | Prisma.SettingsScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Settings"> | string
   pricePerKilowattHour?: Prisma.FloatWithAggregatesFilter<"Settings"> | number
+  platformName?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  supportEmail?: Prisma.StringNullableWithAggregatesFilter<"Settings"> | string | null
+  maintenanceMode?: Prisma.BoolWithAggregatesFilter<"Settings"> | boolean
+  downpaymentAmountPerDevice?: Prisma.IntWithAggregatesFilter<"Settings"> | number
+  loginLockoutThreshold?: Prisma.IntWithAggregatesFilter<"Settings"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Settings"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Settings"> | Date | string
 }
@@ -252,6 +320,11 @@ export type SettingsScalarWhereWithAggregatesInput = {
 export type SettingsCreateInput = {
   id?: string
   pricePerKilowattHour: number
+  platformName?: string | null
+  supportEmail?: string | null
+  maintenanceMode?: boolean
+  downpaymentAmountPerDevice?: number
+  loginLockoutThreshold?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -259,6 +332,11 @@ export type SettingsCreateInput = {
 export type SettingsUncheckedCreateInput = {
   id?: string
   pricePerKilowattHour: number
+  platformName?: string | null
+  supportEmail?: string | null
+  maintenanceMode?: boolean
+  downpaymentAmountPerDevice?: number
+  loginLockoutThreshold?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -266,6 +344,11 @@ export type SettingsUncheckedCreateInput = {
 export type SettingsUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerKilowattHour?: Prisma.FloatFieldUpdateOperationsInput | number
+  platformName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supportEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maintenanceMode?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  downpaymentAmountPerDevice?: Prisma.IntFieldUpdateOperationsInput | number
+  loginLockoutThreshold?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -273,6 +356,11 @@ export type SettingsUpdateInput = {
 export type SettingsUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerKilowattHour?: Prisma.FloatFieldUpdateOperationsInput | number
+  platformName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supportEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maintenanceMode?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  downpaymentAmountPerDevice?: Prisma.IntFieldUpdateOperationsInput | number
+  loginLockoutThreshold?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -280,6 +368,11 @@ export type SettingsUncheckedUpdateInput = {
 export type SettingsCreateManyInput = {
   id?: string
   pricePerKilowattHour: number
+  platformName?: string | null
+  supportEmail?: string | null
+  maintenanceMode?: boolean
+  downpaymentAmountPerDevice?: number
+  loginLockoutThreshold?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -287,6 +380,11 @@ export type SettingsCreateManyInput = {
 export type SettingsUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerKilowattHour?: Prisma.FloatFieldUpdateOperationsInput | number
+  platformName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supportEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maintenanceMode?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  downpaymentAmountPerDevice?: Prisma.IntFieldUpdateOperationsInput | number
+  loginLockoutThreshold?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -294,6 +392,11 @@ export type SettingsUpdateManyMutationInput = {
 export type SettingsUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerKilowattHour?: Prisma.FloatFieldUpdateOperationsInput | number
+  platformName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supportEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maintenanceMode?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  downpaymentAmountPerDevice?: Prisma.IntFieldUpdateOperationsInput | number
+  loginLockoutThreshold?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -301,17 +404,29 @@ export type SettingsUncheckedUpdateManyInput = {
 export type SettingsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   pricePerKilowattHour?: Prisma.SortOrder
+  platformName?: Prisma.SortOrder
+  supportEmail?: Prisma.SortOrder
+  maintenanceMode?: Prisma.SortOrder
+  downpaymentAmountPerDevice?: Prisma.SortOrder
+  loginLockoutThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type SettingsAvgOrderByAggregateInput = {
   pricePerKilowattHour?: Prisma.SortOrder
+  downpaymentAmountPerDevice?: Prisma.SortOrder
+  loginLockoutThreshold?: Prisma.SortOrder
 }
 
 export type SettingsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   pricePerKilowattHour?: Prisma.SortOrder
+  platformName?: Prisma.SortOrder
+  supportEmail?: Prisma.SortOrder
+  maintenanceMode?: Prisma.SortOrder
+  downpaymentAmountPerDevice?: Prisma.SortOrder
+  loginLockoutThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -319,15 +434,30 @@ export type SettingsMaxOrderByAggregateInput = {
 export type SettingsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   pricePerKilowattHour?: Prisma.SortOrder
+  platformName?: Prisma.SortOrder
+  supportEmail?: Prisma.SortOrder
+  maintenanceMode?: Prisma.SortOrder
+  downpaymentAmountPerDevice?: Prisma.SortOrder
+  loginLockoutThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type SettingsSumOrderByAggregateInput = {
   pricePerKilowattHour?: Prisma.SortOrder
+  downpaymentAmountPerDevice?: Prisma.SortOrder
+  loginLockoutThreshold?: Prisma.SortOrder
 }
 
 export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
   decrement?: number
@@ -340,6 +470,11 @@ export type FloatFieldUpdateOperationsInput = {
 export type SettingsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   pricePerKilowattHour?: boolean
+  platformName?: boolean
+  supportEmail?: boolean
+  maintenanceMode?: boolean
+  downpaymentAmountPerDevice?: boolean
+  loginLockoutThreshold?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["settings"]>
@@ -347,6 +482,11 @@ export type SettingsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type SettingsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   pricePerKilowattHour?: boolean
+  platformName?: boolean
+  supportEmail?: boolean
+  maintenanceMode?: boolean
+  downpaymentAmountPerDevice?: boolean
+  loginLockoutThreshold?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["settings"]>
@@ -354,6 +494,11 @@ export type SettingsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type SettingsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   pricePerKilowattHour?: boolean
+  platformName?: boolean
+  supportEmail?: boolean
+  maintenanceMode?: boolean
+  downpaymentAmountPerDevice?: boolean
+  loginLockoutThreshold?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["settings"]>
@@ -361,11 +506,16 @@ export type SettingsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type SettingsSelectScalar = {
   id?: boolean
   pricePerKilowattHour?: boolean
+  platformName?: boolean
+  supportEmail?: boolean
+  maintenanceMode?: boolean
+  downpaymentAmountPerDevice?: boolean
+  loginLockoutThreshold?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "pricePerKilowattHour" | "createdAt" | "updatedAt", ExtArgs["result"]["settings"]>
+export type SettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "pricePerKilowattHour" | "platformName" | "supportEmail" | "maintenanceMode" | "downpaymentAmountPerDevice" | "loginLockoutThreshold" | "createdAt" | "updatedAt", ExtArgs["result"]["settings"]>
 
 export type $SettingsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Settings"
@@ -373,6 +523,11 @@ export type $SettingsPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     pricePerKilowattHour: number
+    platformName: string | null
+    supportEmail: string | null
+    maintenanceMode: boolean
+    downpaymentAmountPerDevice: number
+    loginLockoutThreshold: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["settings"]>
@@ -800,6 +955,11 @@ export interface Prisma__SettingsClient<T, Null = never, ExtArgs extends runtime
 export interface SettingsFieldRefs {
   readonly id: Prisma.FieldRef<"Settings", 'String'>
   readonly pricePerKilowattHour: Prisma.FieldRef<"Settings", 'Float'>
+  readonly platformName: Prisma.FieldRef<"Settings", 'String'>
+  readonly supportEmail: Prisma.FieldRef<"Settings", 'String'>
+  readonly maintenanceMode: Prisma.FieldRef<"Settings", 'Boolean'>
+  readonly downpaymentAmountPerDevice: Prisma.FieldRef<"Settings", 'Int'>
+  readonly loginLockoutThreshold: Prisma.FieldRef<"Settings", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Settings", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Settings", 'DateTime'>
 }

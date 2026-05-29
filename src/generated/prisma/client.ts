@@ -41,8 +41,8 @@ export { Prisma }
 
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node")
-path.join(process.cwd(), "src/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node")
+path.join(__dirname, "query_engine-windows.dll.node")
+path.join(process.cwd(), "src/generated/prisma/query_engine-windows.dll.node")
 
 /**
  * Model User
@@ -79,3 +79,63 @@ export type RequestLog = Prisma.RequestLogModel
  * 
  */
 export type Settings = Prisma.SettingsModel
+/**
+ * Model application
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type application = Prisma.applicationModel
+/**
+ * Model audit_log
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type audit_log = Prisma.audit_logModel
+/**
+ * Model branch
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type branch = Prisma.branchModel
+/**
+ * Model client_subscription
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type client_subscription = Prisma.client_subscriptionModel
+/**
+ * Model device
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type device = Prisma.deviceModel
+/**
+ * Model payment_submission
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type payment_submission = Prisma.payment_submissionModel
+/**
+ * Model subscription_plan
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type subscription_plan = Prisma.subscription_planModel
+/**
+ * Model support_ticket
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type support_ticket = Prisma.support_ticketModel
+/**
+ * Model support_ticket_message
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type support_ticket_message = Prisma.support_ticket_messageModel
+/**
+ * Model system_notification_setting
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type system_notification_setting = Prisma.system_notification_settingModel
+/**
+ * Model ContactMessage
+ * 
+ */
+export type ContactMessage = Prisma.ContactMessageModel
+/**
+ * Model preorder_application
+ * 
+ */
+export type preorder_application = Prisma.preorder_applicationModel

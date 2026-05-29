@@ -28,6 +28,7 @@ export type RequestLogMinAggregateOutputType = {
   id: string | null
   method: string | null
   path: string | null
+  userId: string | null
   createdAt: Date | null
 }
 
@@ -35,6 +36,7 @@ export type RequestLogMaxAggregateOutputType = {
   id: string | null
   method: string | null
   path: string | null
+  userId: string | null
   createdAt: Date | null
 }
 
@@ -45,6 +47,7 @@ export type RequestLogCountAggregateOutputType = {
   query: number
   headers: number
   payload: number
+  userId: number
   createdAt: number
   _all: number
 }
@@ -54,6 +57,7 @@ export type RequestLogMinAggregateInputType = {
   id?: true
   method?: true
   path?: true
+  userId?: true
   createdAt?: true
 }
 
@@ -61,6 +65,7 @@ export type RequestLogMaxAggregateInputType = {
   id?: true
   method?: true
   path?: true
+  userId?: true
   createdAt?: true
 }
 
@@ -71,6 +76,7 @@ export type RequestLogCountAggregateInputType = {
   query?: true
   headers?: true
   payload?: true
+  userId?: true
   createdAt?: true
   _all?: true
 }
@@ -154,6 +160,7 @@ export type RequestLogGroupByOutputType = {
   query: runtime.JsonValue | null
   headers: runtime.JsonValue
   payload: runtime.JsonValue | null
+  userId: string | null
   createdAt: Date
   _count: RequestLogCountAggregateOutputType | null
   _min: RequestLogMinAggregateOutputType | null
@@ -185,7 +192,9 @@ export type RequestLogWhereInput = {
   query?: Prisma.JsonNullableFilter<"RequestLog">
   headers?: Prisma.JsonFilter<"RequestLog">
   payload?: Prisma.JsonNullableFilter<"RequestLog">
+  userId?: Prisma.StringNullableFilter<"RequestLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"RequestLog"> | Date | string
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type RequestLogOrderByWithRelationInput = {
@@ -195,7 +204,9 @@ export type RequestLogOrderByWithRelationInput = {
   query?: Prisma.SortOrderInput | Prisma.SortOrder
   headers?: Prisma.SortOrder
   payload?: Prisma.SortOrderInput | Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type RequestLogWhereUniqueInput = Prisma.AtLeast<{
@@ -208,7 +219,9 @@ export type RequestLogWhereUniqueInput = Prisma.AtLeast<{
   query?: Prisma.JsonNullableFilter<"RequestLog">
   headers?: Prisma.JsonFilter<"RequestLog">
   payload?: Prisma.JsonNullableFilter<"RequestLog">
+  userId?: Prisma.StringNullableFilter<"RequestLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"RequestLog"> | Date | string
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type RequestLogOrderByWithAggregationInput = {
@@ -218,6 +231,7 @@ export type RequestLogOrderByWithAggregationInput = {
   query?: Prisma.SortOrderInput | Prisma.SortOrder
   headers?: Prisma.SortOrder
   payload?: Prisma.SortOrderInput | Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.RequestLogCountOrderByAggregateInput
   _max?: Prisma.RequestLogMaxOrderByAggregateInput
@@ -234,6 +248,7 @@ export type RequestLogScalarWhereWithAggregatesInput = {
   query?: Prisma.JsonNullableWithAggregatesFilter<"RequestLog">
   headers?: Prisma.JsonWithAggregatesFilter<"RequestLog">
   payload?: Prisma.JsonNullableWithAggregatesFilter<"RequestLog">
+  userId?: Prisma.StringNullableWithAggregatesFilter<"RequestLog"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RequestLog"> | Date | string
 }
 
@@ -245,6 +260,7 @@ export type RequestLogCreateInput = {
   headers: Prisma.JsonNullValueInput | runtime.InputJsonValue
   payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  user?: Prisma.UserCreateNestedOneWithoutRequest_logInput
 }
 
 export type RequestLogUncheckedCreateInput = {
@@ -254,6 +270,7 @@ export type RequestLogUncheckedCreateInput = {
   query?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   headers: Prisma.JsonNullValueInput | runtime.InputJsonValue
   payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  userId?: string | null
   createdAt?: Date | string
 }
 
@@ -265,6 +282,7 @@ export type RequestLogUpdateInput = {
   headers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneWithoutRequest_logNestedInput
 }
 
 export type RequestLogUncheckedUpdateInput = {
@@ -274,6 +292,7 @@ export type RequestLogUncheckedUpdateInput = {
   query?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   headers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -284,6 +303,7 @@ export type RequestLogCreateManyInput = {
   query?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   headers: Prisma.JsonNullValueInput | runtime.InputJsonValue
   payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  userId?: string | null
   createdAt?: Date | string
 }
 
@@ -304,7 +324,18 @@ export type RequestLogUncheckedUpdateManyInput = {
   query?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   headers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RequestLogListRelationFilter = {
+  every?: Prisma.RequestLogWhereInput
+  some?: Prisma.RequestLogWhereInput
+  none?: Prisma.RequestLogWhereInput
+}
+
+export type RequestLogOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type RequestLogCountOrderByAggregateInput = {
@@ -314,6 +345,7 @@ export type RequestLogCountOrderByAggregateInput = {
   query?: Prisma.SortOrder
   headers?: Prisma.SortOrder
   payload?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -321,6 +353,7 @@ export type RequestLogMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   method?: Prisma.SortOrder
   path?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -328,7 +361,150 @@ export type RequestLogMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   method?: Prisma.SortOrder
   path?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type RequestLogCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.RequestLogCreateWithoutUserInput, Prisma.RequestLogUncheckedCreateWithoutUserInput> | Prisma.RequestLogCreateWithoutUserInput[] | Prisma.RequestLogUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.RequestLogCreateOrConnectWithoutUserInput | Prisma.RequestLogCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.RequestLogCreateManyUserInputEnvelope
+  connect?: Prisma.RequestLogWhereUniqueInput | Prisma.RequestLogWhereUniqueInput[]
+}
+
+export type RequestLogUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.RequestLogCreateWithoutUserInput, Prisma.RequestLogUncheckedCreateWithoutUserInput> | Prisma.RequestLogCreateWithoutUserInput[] | Prisma.RequestLogUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.RequestLogCreateOrConnectWithoutUserInput | Prisma.RequestLogCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.RequestLogCreateManyUserInputEnvelope
+  connect?: Prisma.RequestLogWhereUniqueInput | Prisma.RequestLogWhereUniqueInput[]
+}
+
+export type RequestLogUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.RequestLogCreateWithoutUserInput, Prisma.RequestLogUncheckedCreateWithoutUserInput> | Prisma.RequestLogCreateWithoutUserInput[] | Prisma.RequestLogUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.RequestLogCreateOrConnectWithoutUserInput | Prisma.RequestLogCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.RequestLogUpsertWithWhereUniqueWithoutUserInput | Prisma.RequestLogUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.RequestLogCreateManyUserInputEnvelope
+  set?: Prisma.RequestLogWhereUniqueInput | Prisma.RequestLogWhereUniqueInput[]
+  disconnect?: Prisma.RequestLogWhereUniqueInput | Prisma.RequestLogWhereUniqueInput[]
+  delete?: Prisma.RequestLogWhereUniqueInput | Prisma.RequestLogWhereUniqueInput[]
+  connect?: Prisma.RequestLogWhereUniqueInput | Prisma.RequestLogWhereUniqueInput[]
+  update?: Prisma.RequestLogUpdateWithWhereUniqueWithoutUserInput | Prisma.RequestLogUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.RequestLogUpdateManyWithWhereWithoutUserInput | Prisma.RequestLogUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.RequestLogScalarWhereInput | Prisma.RequestLogScalarWhereInput[]
+}
+
+export type RequestLogUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.RequestLogCreateWithoutUserInput, Prisma.RequestLogUncheckedCreateWithoutUserInput> | Prisma.RequestLogCreateWithoutUserInput[] | Prisma.RequestLogUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.RequestLogCreateOrConnectWithoutUserInput | Prisma.RequestLogCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.RequestLogUpsertWithWhereUniqueWithoutUserInput | Prisma.RequestLogUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.RequestLogCreateManyUserInputEnvelope
+  set?: Prisma.RequestLogWhereUniqueInput | Prisma.RequestLogWhereUniqueInput[]
+  disconnect?: Prisma.RequestLogWhereUniqueInput | Prisma.RequestLogWhereUniqueInput[]
+  delete?: Prisma.RequestLogWhereUniqueInput | Prisma.RequestLogWhereUniqueInput[]
+  connect?: Prisma.RequestLogWhereUniqueInput | Prisma.RequestLogWhereUniqueInput[]
+  update?: Prisma.RequestLogUpdateWithWhereUniqueWithoutUserInput | Prisma.RequestLogUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.RequestLogUpdateManyWithWhereWithoutUserInput | Prisma.RequestLogUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.RequestLogScalarWhereInput | Prisma.RequestLogScalarWhereInput[]
+}
+
+export type RequestLogCreateWithoutUserInput = {
+  id?: string
+  method: string
+  path: string
+  query?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  headers: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+}
+
+export type RequestLogUncheckedCreateWithoutUserInput = {
+  id?: string
+  method: string
+  path: string
+  query?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  headers: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+}
+
+export type RequestLogCreateOrConnectWithoutUserInput = {
+  where: Prisma.RequestLogWhereUniqueInput
+  create: Prisma.XOR<Prisma.RequestLogCreateWithoutUserInput, Prisma.RequestLogUncheckedCreateWithoutUserInput>
+}
+
+export type RequestLogCreateManyUserInputEnvelope = {
+  data: Prisma.RequestLogCreateManyUserInput | Prisma.RequestLogCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type RequestLogUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.RequestLogWhereUniqueInput
+  update: Prisma.XOR<Prisma.RequestLogUpdateWithoutUserInput, Prisma.RequestLogUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.RequestLogCreateWithoutUserInput, Prisma.RequestLogUncheckedCreateWithoutUserInput>
+}
+
+export type RequestLogUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.RequestLogWhereUniqueInput
+  data: Prisma.XOR<Prisma.RequestLogUpdateWithoutUserInput, Prisma.RequestLogUncheckedUpdateWithoutUserInput>
+}
+
+export type RequestLogUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.RequestLogScalarWhereInput
+  data: Prisma.XOR<Prisma.RequestLogUpdateManyMutationInput, Prisma.RequestLogUncheckedUpdateManyWithoutUserInput>
+}
+
+export type RequestLogScalarWhereInput = {
+  AND?: Prisma.RequestLogScalarWhereInput | Prisma.RequestLogScalarWhereInput[]
+  OR?: Prisma.RequestLogScalarWhereInput[]
+  NOT?: Prisma.RequestLogScalarWhereInput | Prisma.RequestLogScalarWhereInput[]
+  id?: Prisma.StringFilter<"RequestLog"> | string
+  method?: Prisma.StringFilter<"RequestLog"> | string
+  path?: Prisma.StringFilter<"RequestLog"> | string
+  query?: Prisma.JsonNullableFilter<"RequestLog">
+  headers?: Prisma.JsonFilter<"RequestLog">
+  payload?: Prisma.JsonNullableFilter<"RequestLog">
+  userId?: Prisma.StringNullableFilter<"RequestLog"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"RequestLog"> | Date | string
+}
+
+export type RequestLogCreateManyUserInput = {
+  id?: string
+  method: string
+  path: string
+  query?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  headers: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+}
+
+export type RequestLogUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  method?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  query?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  headers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RequestLogUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  method?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  query?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  headers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RequestLogUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  method?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  query?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  headers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -340,7 +516,9 @@ export type RequestLogSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   query?: boolean
   headers?: boolean
   payload?: boolean
+  userId?: boolean
   createdAt?: boolean
+  user?: boolean | Prisma.RequestLog$userArgs<ExtArgs>
 }, ExtArgs["result"]["requestLog"]>
 
 export type RequestLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -350,7 +528,9 @@ export type RequestLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   query?: boolean
   headers?: boolean
   payload?: boolean
+  userId?: boolean
   createdAt?: boolean
+  user?: boolean | Prisma.RequestLog$userArgs<ExtArgs>
 }, ExtArgs["result"]["requestLog"]>
 
 export type RequestLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -360,7 +540,9 @@ export type RequestLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   query?: boolean
   headers?: boolean
   payload?: boolean
+  userId?: boolean
   createdAt?: boolean
+  user?: boolean | Prisma.RequestLog$userArgs<ExtArgs>
 }, ExtArgs["result"]["requestLog"]>
 
 export type RequestLogSelectScalar = {
@@ -370,14 +552,26 @@ export type RequestLogSelectScalar = {
   query?: boolean
   headers?: boolean
   payload?: boolean
+  userId?: boolean
   createdAt?: boolean
 }
 
-export type RequestLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "method" | "path" | "query" | "headers" | "payload" | "createdAt", ExtArgs["result"]["requestLog"]>
+export type RequestLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "method" | "path" | "query" | "headers" | "payload" | "userId" | "createdAt", ExtArgs["result"]["requestLog"]>
+export type RequestLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.RequestLog$userArgs<ExtArgs>
+}
+export type RequestLogIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.RequestLog$userArgs<ExtArgs>
+}
+export type RequestLogIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.RequestLog$userArgs<ExtArgs>
+}
 
 export type $RequestLogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RequestLog"
-  objects: {}
+  objects: {
+    user: Prisma.$UserPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     method: string
@@ -385,6 +579,7 @@ export type $RequestLogPayload<ExtArgs extends runtime.Types.Extensions.Internal
     query: runtime.JsonValue | null
     headers: runtime.JsonValue
     payload: runtime.JsonValue | null
+    userId: string | null
     createdAt: Date
   }, ExtArgs["result"]["requestLog"]>
   composites: {}
@@ -780,6 +975,7 @@ readonly fields: RequestLogFieldRefs;
  */
 export interface Prisma__RequestLogClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.RequestLog$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RequestLog$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -815,6 +1011,7 @@ export interface RequestLogFieldRefs {
   readonly query: Prisma.FieldRef<"RequestLog", 'Json'>
   readonly headers: Prisma.FieldRef<"RequestLog", 'Json'>
   readonly payload: Prisma.FieldRef<"RequestLog", 'Json'>
+  readonly userId: Prisma.FieldRef<"RequestLog", 'String'>
   readonly createdAt: Prisma.FieldRef<"RequestLog", 'DateTime'>
 }
     
@@ -832,6 +1029,10 @@ export type RequestLogFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the RequestLog
    */
   omit?: Prisma.RequestLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogInclude<ExtArgs> | null
   /**
    * Filter, which RequestLog to fetch.
    */
@@ -851,6 +1052,10 @@ export type RequestLogFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extens
    */
   omit?: Prisma.RequestLogOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogInclude<ExtArgs> | null
+  /**
    * Filter, which RequestLog to fetch.
    */
   where: Prisma.RequestLogWhereUniqueInput
@@ -868,6 +1073,10 @@ export type RequestLogFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the RequestLog
    */
   omit?: Prisma.RequestLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogInclude<ExtArgs> | null
   /**
    * Filter, which RequestLog to fetch.
    */
@@ -917,6 +1126,10 @@ export type RequestLogFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.RequestLogOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogInclude<ExtArgs> | null
+  /**
    * Filter, which RequestLog to fetch.
    */
   where?: Prisma.RequestLogWhereInput
@@ -965,6 +1178,10 @@ export type RequestLogFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   omit?: Prisma.RequestLogOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogInclude<ExtArgs> | null
+  /**
    * Filter, which RequestLogs to fetch.
    */
   where?: Prisma.RequestLogWhereInput
@@ -1008,6 +1225,10 @@ export type RequestLogCreateArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.RequestLogOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogInclude<ExtArgs> | null
+  /**
    * The data needed to create a RequestLog.
    */
   data: Prisma.XOR<Prisma.RequestLogCreateInput, Prisma.RequestLogUncheckedCreateInput>
@@ -1041,6 +1262,10 @@ export type RequestLogCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    */
   data: Prisma.RequestLogCreateManyInput | Prisma.RequestLogCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1055,6 +1280,10 @@ export type RequestLogUpdateArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the RequestLog
    */
   omit?: Prisma.RequestLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogInclude<ExtArgs> | null
   /**
    * The data needed to update a RequestLog.
    */
@@ -1107,6 +1336,10 @@ export type RequestLogUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    * Limit how many RequestLogs to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1121,6 +1354,10 @@ export type RequestLogUpsertArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the RequestLog
    */
   omit?: Prisma.RequestLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogInclude<ExtArgs> | null
   /**
    * The filter to search for the RequestLog to update in case it exists.
    */
@@ -1148,6 +1385,10 @@ export type RequestLogDeleteArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.RequestLogOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogInclude<ExtArgs> | null
+  /**
    * Filter which RequestLog to delete.
    */
   where: Prisma.RequestLogWhereUniqueInput
@@ -1168,6 +1409,25 @@ export type RequestLogDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
+ * RequestLog.user
+ */
+export type RequestLog$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
  * RequestLog without action
  */
 export type RequestLogDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1179,4 +1439,8 @@ export type RequestLogDefaultArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the RequestLog
    */
   omit?: Prisma.RequestLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogInclude<ExtArgs> | null
 }

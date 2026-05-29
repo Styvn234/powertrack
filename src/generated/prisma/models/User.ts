@@ -30,15 +30,16 @@ export type UserMinAggregateOutputType = {
   email: string | null
   emailVerified: boolean | null
   image: string | null
+  phoneNumber: string | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   twoFactorEnabled: boolean | null
-  role: string | null
   banned: boolean | null
   banReason: string | null
   banExpires: Date | null
-  phoneNumber: string | null
-  deletedAt: Date | null
+  branchId: string | null
+  role: $Enums.UserRole | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -47,15 +48,16 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   emailVerified: boolean | null
   image: string | null
+  phoneNumber: string | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   twoFactorEnabled: boolean | null
-  role: string | null
   banned: boolean | null
   banReason: string | null
   banExpires: Date | null
-  phoneNumber: string | null
-  deletedAt: Date | null
+  branchId: string | null
+  role: $Enums.UserRole | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -64,15 +66,16 @@ export type UserCountAggregateOutputType = {
   email: number
   emailVerified: number
   image: number
+  phoneNumber: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   twoFactorEnabled: number
-  role: number
   banned: number
   banReason: number
   banExpires: number
-  phoneNumber: number
-  deletedAt: number
+  branchId: number
+  role: number
   _all: number
 }
 
@@ -83,15 +86,16 @@ export type UserMinAggregateInputType = {
   email?: true
   emailVerified?: true
   image?: true
+  phoneNumber?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   twoFactorEnabled?: true
-  role?: true
   banned?: true
   banReason?: true
   banExpires?: true
-  phoneNumber?: true
-  deletedAt?: true
+  branchId?: true
+  role?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -100,15 +104,16 @@ export type UserMaxAggregateInputType = {
   email?: true
   emailVerified?: true
   image?: true
+  phoneNumber?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   twoFactorEnabled?: true
-  role?: true
   banned?: true
   banReason?: true
   banExpires?: true
-  phoneNumber?: true
-  deletedAt?: true
+  branchId?: true
+  role?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -117,15 +122,16 @@ export type UserCountAggregateInputType = {
   email?: true
   emailVerified?: true
   image?: true
+  phoneNumber?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   twoFactorEnabled?: true
-  role?: true
   banned?: true
   banReason?: true
   banExpires?: true
-  phoneNumber?: true
-  deletedAt?: true
+  branchId?: true
+  role?: true
   _all?: true
 }
 
@@ -207,15 +213,16 @@ export type UserGroupByOutputType = {
   email: string
   emailVerified: boolean
   image: string | null
+  phoneNumber: string | null
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   twoFactorEnabled: boolean | null
-  role: string | null
   banned: boolean | null
   banReason: string | null
   banExpires: Date | null
-  phoneNumber: string | null
-  deletedAt: Date | null
+  branchId: string | null
+  role: $Enums.UserRole
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -245,18 +252,32 @@ export type UserWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
+  phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   twoFactorEnabled?: Prisma.BoolNullableFilter<"User"> | boolean | null
-  role?: Prisma.StringNullableFilter<"User"> | string | null
   banned?: Prisma.BoolNullableFilter<"User"> | boolean | null
   banReason?: Prisma.StringNullableFilter<"User"> | string | null
   banExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
-  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  branchId?: Prisma.StringNullableFilter<"User"> | string | null
+  role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   accounts?: Prisma.AccountListRelationFilter
+  application_application_clientUserIdTouser?: Prisma.XOR<Prisma.ApplicationNullableScalarRelationFilter, Prisma.applicationWhereInput> | null
+  application_application_reviewedByIdTouser?: Prisma.ApplicationListRelationFilter
+  audit_log?: Prisma.Audit_logListRelationFilter
+  client_subscription?: Prisma.XOR<Prisma.Client_subscriptionNullableScalarRelationFilter, Prisma.client_subscriptionWhereInput> | null
+  device?: Prisma.DeviceListRelationFilter
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.Payment_submissionListRelationFilter
+  payment_submission_payment_submission_userIdTouser?: Prisma.Payment_submissionListRelationFilter
+  request_log?: Prisma.RequestLogListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.Support_ticketListRelationFilter
+  support_ticket_support_ticket_userIdTouser?: Prisma.Support_ticketListRelationFilter
+  support_ticket_message?: Prisma.Support_ticket_messageListRelationFilter
+  system_notification_setting?: Prisma.System_notification_settingListRelationFilter
   twofactors?: Prisma.TwoFactorListRelationFilter
+  branch?: Prisma.XOR<Prisma.BranchNullableScalarRelationFilter, Prisma.branchWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -265,18 +286,32 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   twoFactorEnabled?: Prisma.SortOrderInput | Prisma.SortOrder
-  role?: Prisma.SortOrderInput | Prisma.SortOrder
   banned?: Prisma.SortOrderInput | Prisma.SortOrder
   banReason?: Prisma.SortOrderInput | Prisma.SortOrder
   banExpires?: Prisma.SortOrderInput | Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  branchId?: Prisma.SortOrderInput | Prisma.SortOrder
+  role?: Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
+  application_application_clientUserIdTouser?: Prisma.applicationOrderByWithRelationInput
+  application_application_reviewedByIdTouser?: Prisma.applicationOrderByRelationAggregateInput
+  audit_log?: Prisma.audit_logOrderByRelationAggregateInput
+  client_subscription?: Prisma.client_subscriptionOrderByWithRelationInput
+  device?: Prisma.deviceOrderByRelationAggregateInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionOrderByRelationAggregateInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionOrderByRelationAggregateInput
+  request_log?: Prisma.RequestLogOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketOrderByRelationAggregateInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketOrderByRelationAggregateInput
+  support_ticket_message?: Prisma.support_ticket_messageOrderByRelationAggregateInput
+  system_notification_setting?: Prisma.system_notification_settingOrderByRelationAggregateInput
   twofactors?: Prisma.TwoFactorOrderByRelationAggregateInput
+  branch?: Prisma.branchOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -288,18 +323,32 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
+  phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   twoFactorEnabled?: Prisma.BoolNullableFilter<"User"> | boolean | null
-  role?: Prisma.StringNullableFilter<"User"> | string | null
   banned?: Prisma.BoolNullableFilter<"User"> | boolean | null
   banReason?: Prisma.StringNullableFilter<"User"> | string | null
   banExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
-  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  branchId?: Prisma.StringNullableFilter<"User"> | string | null
+  role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   accounts?: Prisma.AccountListRelationFilter
+  application_application_clientUserIdTouser?: Prisma.XOR<Prisma.ApplicationNullableScalarRelationFilter, Prisma.applicationWhereInput> | null
+  application_application_reviewedByIdTouser?: Prisma.ApplicationListRelationFilter
+  audit_log?: Prisma.Audit_logListRelationFilter
+  client_subscription?: Prisma.XOR<Prisma.Client_subscriptionNullableScalarRelationFilter, Prisma.client_subscriptionWhereInput> | null
+  device?: Prisma.DeviceListRelationFilter
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.Payment_submissionListRelationFilter
+  payment_submission_payment_submission_userIdTouser?: Prisma.Payment_submissionListRelationFilter
+  request_log?: Prisma.RequestLogListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.Support_ticketListRelationFilter
+  support_ticket_support_ticket_userIdTouser?: Prisma.Support_ticketListRelationFilter
+  support_ticket_message?: Prisma.Support_ticket_messageListRelationFilter
+  system_notification_setting?: Prisma.System_notification_settingListRelationFilter
   twofactors?: Prisma.TwoFactorListRelationFilter
+  branch?: Prisma.XOR<Prisma.BranchNullableScalarRelationFilter, Prisma.branchWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -308,15 +357,16 @@ export type UserOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   twoFactorEnabled?: Prisma.SortOrderInput | Prisma.SortOrder
-  role?: Prisma.SortOrderInput | Prisma.SortOrder
   banned?: Prisma.SortOrderInput | Prisma.SortOrder
   banReason?: Prisma.SortOrderInput | Prisma.SortOrder
   banExpires?: Prisma.SortOrderInput | Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  branchId?: Prisma.SortOrderInput | Prisma.SortOrder
+  role?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -331,15 +381,16 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   twoFactorEnabled?: Prisma.BoolNullableWithAggregatesFilter<"User"> | boolean | null
-  role?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   banned?: Prisma.BoolNullableWithAggregatesFilter<"User"> | boolean | null
   banReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   banExpires?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-  phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  branchId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
 }
 
 export type UserCreateInput = {
@@ -348,18 +399,31 @@ export type UserCreateInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   twoFactorEnabled?: boolean | null
-  role?: string | null
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  phoneNumber?: string | null
-  deletedAt?: Date | string | null
+  role?: $Enums.UserRole
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
   twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -368,17 +432,30 @@ export type UserUncheckedCreateInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   twoFactorEnabled?: boolean | null
-  role?: string | null
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  phoneNumber?: string | null
-  deletedAt?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
   twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -388,18 +465,31 @@ export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
   twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -408,17 +498,30 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
   twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -428,15 +531,16 @@ export type UserCreateManyInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   twoFactorEnabled?: boolean | null
-  role?: string | null
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  phoneNumber?: string | null
-  deletedAt?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
 }
 
 export type UserUpdateManyMutationInput = {
@@ -445,15 +549,15 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -462,15 +566,16 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -479,15 +584,16 @@ export type UserCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   twoFactorEnabled?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   banned?: Prisma.SortOrder
   banReason?: Prisma.SortOrder
   banExpires?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
+  branchId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -496,15 +602,16 @@ export type UserMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   twoFactorEnabled?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   banned?: Prisma.SortOrder
   banReason?: Prisma.SortOrder
   banExpires?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
+  branchId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -513,20 +620,36 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   twoFactorEnabled?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   banned?: Prisma.SortOrder
   banReason?: Prisma.SortOrder
   banExpires?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
+  branchId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
+export type UserListRelationFilter = {
+  every?: Prisma.UserWhereInput
+  some?: Prisma.UserWhereInput
+  none?: Prisma.UserWhereInput
+}
+
+export type UserOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -541,6 +664,10 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
@@ -549,8 +676,8 @@ export type NullableBoolFieldUpdateOperationsInput = {
   set?: boolean | null
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
+export type EnumUserRoleFieldUpdateOperationsInput = {
+  set?: $Enums.UserRole
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -595,23 +722,268 @@ export type UserUpdateOneRequiredWithoutTwofactorsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTwofactorsInput, Prisma.UserUpdateWithoutTwofactorsInput>, Prisma.UserUncheckedUpdateWithoutTwofactorsInput>
 }
 
+export type UserCreateNestedOneWithoutRequest_logInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRequest_logInput, Prisma.UserUncheckedCreateWithoutRequest_logInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRequest_logInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutRequest_logNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRequest_logInput, Prisma.UserUncheckedCreateWithoutRequest_logInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRequest_logInput
+  upsert?: Prisma.UserUpsertWithoutRequest_logInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRequest_logInput, Prisma.UserUpdateWithoutRequest_logInput>, Prisma.UserUncheckedUpdateWithoutRequest_logInput>
+}
+
+export type UserCreateNestedOneWithoutApplication_application_clientUserIdTouserInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutApplication_application_clientUserIdTouserInput, Prisma.UserUncheckedCreateWithoutApplication_application_clientUserIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutApplication_application_clientUserIdTouserInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutApplication_application_reviewedByIdTouserInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutApplication_application_reviewedByIdTouserInput, Prisma.UserUncheckedCreateWithoutApplication_application_reviewedByIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutApplication_application_reviewedByIdTouserInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutApplication_application_clientUserIdTouserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutApplication_application_clientUserIdTouserInput, Prisma.UserUncheckedCreateWithoutApplication_application_clientUserIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutApplication_application_clientUserIdTouserInput
+  upsert?: Prisma.UserUpsertWithoutApplication_application_clientUserIdTouserInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutApplication_application_clientUserIdTouserInput, Prisma.UserUpdateWithoutApplication_application_clientUserIdTouserInput>, Prisma.UserUncheckedUpdateWithoutApplication_application_clientUserIdTouserInput>
+}
+
+export type UserUpdateOneWithoutApplication_application_reviewedByIdTouserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutApplication_application_reviewedByIdTouserInput, Prisma.UserUncheckedCreateWithoutApplication_application_reviewedByIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutApplication_application_reviewedByIdTouserInput
+  upsert?: Prisma.UserUpsertWithoutApplication_application_reviewedByIdTouserInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutApplication_application_reviewedByIdTouserInput, Prisma.UserUpdateWithoutApplication_application_reviewedByIdTouserInput>, Prisma.UserUncheckedUpdateWithoutApplication_application_reviewedByIdTouserInput>
+}
+
+export type UserCreateNestedOneWithoutAudit_logInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAudit_logInput, Prisma.UserUncheckedCreateWithoutAudit_logInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAudit_logInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAudit_logNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAudit_logInput, Prisma.UserUncheckedCreateWithoutAudit_logInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAudit_logInput
+  upsert?: Prisma.UserUpsertWithoutAudit_logInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAudit_logInput, Prisma.UserUpdateWithoutAudit_logInput>, Prisma.UserUncheckedUpdateWithoutAudit_logInput>
+}
+
+export type UserCreateNestedManyWithoutBranchInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBranchInput, Prisma.UserUncheckedCreateWithoutBranchInput> | Prisma.UserCreateWithoutBranchInput[] | Prisma.UserUncheckedCreateWithoutBranchInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBranchInput | Prisma.UserCreateOrConnectWithoutBranchInput[]
+  createMany?: Prisma.UserCreateManyBranchInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUncheckedCreateNestedManyWithoutBranchInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBranchInput, Prisma.UserUncheckedCreateWithoutBranchInput> | Prisma.UserCreateWithoutBranchInput[] | Prisma.UserUncheckedCreateWithoutBranchInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBranchInput | Prisma.UserCreateOrConnectWithoutBranchInput[]
+  createMany?: Prisma.UserCreateManyBranchInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUpdateManyWithoutBranchNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBranchInput, Prisma.UserUncheckedCreateWithoutBranchInput> | Prisma.UserCreateWithoutBranchInput[] | Prisma.UserUncheckedCreateWithoutBranchInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBranchInput | Prisma.UserCreateOrConnectWithoutBranchInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutBranchInput | Prisma.UserUpsertWithWhereUniqueWithoutBranchInput[]
+  createMany?: Prisma.UserCreateManyBranchInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutBranchInput | Prisma.UserUpdateWithWhereUniqueWithoutBranchInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutBranchInput | Prisma.UserUpdateManyWithWhereWithoutBranchInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserUncheckedUpdateManyWithoutBranchNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBranchInput, Prisma.UserUncheckedCreateWithoutBranchInput> | Prisma.UserCreateWithoutBranchInput[] | Prisma.UserUncheckedCreateWithoutBranchInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBranchInput | Prisma.UserCreateOrConnectWithoutBranchInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutBranchInput | Prisma.UserUpsertWithWhereUniqueWithoutBranchInput[]
+  createMany?: Prisma.UserCreateManyBranchInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutBranchInput | Prisma.UserUpdateWithWhereUniqueWithoutBranchInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutBranchInput | Prisma.UserUpdateManyWithWhereWithoutBranchInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserCreateNestedOneWithoutClient_subscriptionInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClient_subscriptionInput, Prisma.UserUncheckedCreateWithoutClient_subscriptionInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClient_subscriptionInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutClient_subscriptionNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClient_subscriptionInput, Prisma.UserUncheckedCreateWithoutClient_subscriptionInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClient_subscriptionInput
+  upsert?: Prisma.UserUpsertWithoutClient_subscriptionInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClient_subscriptionInput, Prisma.UserUpdateWithoutClient_subscriptionInput>, Prisma.UserUncheckedUpdateWithoutClient_subscriptionInput>
+}
+
+export type UserCreateNestedOneWithoutDeviceInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDeviceInput, Prisma.UserUncheckedCreateWithoutDeviceInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDeviceInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutDeviceNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDeviceInput, Prisma.UserUncheckedCreateWithoutDeviceInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDeviceInput
+  upsert?: Prisma.UserUpsertWithoutDeviceInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDeviceInput, Prisma.UserUpdateWithoutDeviceInput>, Prisma.UserUncheckedUpdateWithoutDeviceInput>
+}
+
+export type UserCreateNestedOneWithoutPayment_submission_payment_submission_reviewedByIdTouserInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput, Prisma.UserUncheckedCreateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPayment_submission_payment_submission_reviewedByIdTouserInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutPayment_submission_payment_submission_userIdTouserInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPayment_submission_payment_submission_userIdTouserInput, Prisma.UserUncheckedCreateWithoutPayment_submission_payment_submission_userIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPayment_submission_payment_submission_userIdTouserInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutPayment_submission_payment_submission_reviewedByIdTouserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput, Prisma.UserUncheckedCreateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPayment_submission_payment_submission_reviewedByIdTouserInput
+  upsert?: Prisma.UserUpsertWithoutPayment_submission_payment_submission_reviewedByIdTouserInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPayment_submission_payment_submission_reviewedByIdTouserInput, Prisma.UserUpdateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput>, Prisma.UserUncheckedUpdateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput>
+}
+
+export type UserUpdateOneWithoutPayment_submission_payment_submission_userIdTouserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPayment_submission_payment_submission_userIdTouserInput, Prisma.UserUncheckedCreateWithoutPayment_submission_payment_submission_userIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPayment_submission_payment_submission_userIdTouserInput
+  upsert?: Prisma.UserUpsertWithoutPayment_submission_payment_submission_userIdTouserInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPayment_submission_payment_submission_userIdTouserInput, Prisma.UserUpdateWithoutPayment_submission_payment_submission_userIdTouserInput>, Prisma.UserUncheckedUpdateWithoutPayment_submission_payment_submission_userIdTouserInput>
+}
+
+export type UserCreateNestedOneWithoutSupport_ticket_support_ticket_assignedToIdTouserInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput, Prisma.UserUncheckedCreateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupport_ticket_support_ticket_assignedToIdTouserInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutSupport_ticket_support_ticket_userIdTouserInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupport_ticket_support_ticket_userIdTouserInput, Prisma.UserUncheckedCreateWithoutSupport_ticket_support_ticket_userIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupport_ticket_support_ticket_userIdTouserInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSupport_ticket_support_ticket_assignedToIdTouserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput, Prisma.UserUncheckedCreateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupport_ticket_support_ticket_assignedToIdTouserInput
+  upsert?: Prisma.UserUpsertWithoutSupport_ticket_support_ticket_assignedToIdTouserInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSupport_ticket_support_ticket_assignedToIdTouserInput, Prisma.UserUpdateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput>, Prisma.UserUncheckedUpdateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput>
+}
+
+export type UserUpdateOneWithoutSupport_ticket_support_ticket_userIdTouserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupport_ticket_support_ticket_userIdTouserInput, Prisma.UserUncheckedCreateWithoutSupport_ticket_support_ticket_userIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupport_ticket_support_ticket_userIdTouserInput
+  upsert?: Prisma.UserUpsertWithoutSupport_ticket_support_ticket_userIdTouserInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSupport_ticket_support_ticket_userIdTouserInput, Prisma.UserUpdateWithoutSupport_ticket_support_ticket_userIdTouserInput>, Prisma.UserUncheckedUpdateWithoutSupport_ticket_support_ticket_userIdTouserInput>
+}
+
+export type UserCreateNestedOneWithoutSupport_ticket_messageInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupport_ticket_messageInput, Prisma.UserUncheckedCreateWithoutSupport_ticket_messageInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupport_ticket_messageInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSupport_ticket_messageNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupport_ticket_messageInput, Prisma.UserUncheckedCreateWithoutSupport_ticket_messageInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupport_ticket_messageInput
+  upsert?: Prisma.UserUpsertWithoutSupport_ticket_messageInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSupport_ticket_messageInput, Prisma.UserUpdateWithoutSupport_ticket_messageInput>, Prisma.UserUncheckedUpdateWithoutSupport_ticket_messageInput>
+}
+
+export type UserCreateNestedOneWithoutSystem_notification_settingInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSystem_notification_settingInput, Prisma.UserUncheckedCreateWithoutSystem_notification_settingInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSystem_notification_settingInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSystem_notification_settingNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSystem_notification_settingInput, Prisma.UserUncheckedCreateWithoutSystem_notification_settingInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSystem_notification_settingInput
+  upsert?: Prisma.UserUpsertWithoutSystem_notification_settingInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSystem_notification_settingInput, Prisma.UserUpdateWithoutSystem_notification_settingInput>, Prisma.UserUncheckedUpdateWithoutSystem_notification_settingInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id: string
   name: string
   email: string
   emailVerified?: boolean
   image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   twoFactorEnabled?: boolean | null
-  role?: string | null
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  phoneNumber?: string | null
-  deletedAt?: Date | string | null
+  role?: $Enums.UserRole
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
   twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -620,16 +992,29 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   twoFactorEnabled?: boolean | null
-  role?: string | null
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  phoneNumber?: string | null
-  deletedAt?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
   twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -655,17 +1040,30 @@ export type UserUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
   twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -674,16 +1072,29 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
   twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -693,17 +1104,30 @@ export type UserCreateWithoutAccountsInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   twoFactorEnabled?: boolean | null
-  role?: string | null
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  phoneNumber?: string | null
-  deletedAt?: Date | string | null
+  role?: $Enums.UserRole
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
   twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -712,16 +1136,29 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   twoFactorEnabled?: boolean | null
-  role?: string | null
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  phoneNumber?: string | null
-  deletedAt?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
   twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -747,17 +1184,30 @@ export type UserUpdateWithoutAccountsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
   twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -766,16 +1216,29 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
   twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -785,17 +1248,30 @@ export type UserCreateWithoutTwofactorsInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   twoFactorEnabled?: boolean | null
-  role?: string | null
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  phoneNumber?: string | null
-  deletedAt?: Date | string | null
+  role?: $Enums.UserRole
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTwofactorsInput = {
@@ -804,17 +1280,30 @@ export type UserUncheckedCreateWithoutTwofactorsInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   twoFactorEnabled?: boolean | null
-  role?: string | null
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  phoneNumber?: string | null
-  deletedAt?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTwofactorsInput = {
@@ -839,17 +1328,30 @@ export type UserUpdateWithoutTwofactorsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTwofactorsInput = {
@@ -858,17 +1360,1967 @@ export type UserUncheckedUpdateWithoutTwofactorsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutRequest_logInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutRequest_logInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutRequest_logInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRequest_logInput, Prisma.UserUncheckedCreateWithoutRequest_logInput>
+}
+
+export type UserUpsertWithoutRequest_logInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRequest_logInput, Prisma.UserUncheckedUpdateWithoutRequest_logInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRequest_logInput, Prisma.UserUncheckedCreateWithoutRequest_logInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRequest_logInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRequest_logInput, Prisma.UserUncheckedUpdateWithoutRequest_logInput>
+}
+
+export type UserUpdateWithoutRequest_logInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRequest_logInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutApplication_application_clientUserIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutApplication_application_clientUserIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutApplication_application_clientUserIdTouserInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutApplication_application_clientUserIdTouserInput, Prisma.UserUncheckedCreateWithoutApplication_application_clientUserIdTouserInput>
+}
+
+export type UserCreateWithoutApplication_application_reviewedByIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutApplication_application_reviewedByIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutApplication_application_reviewedByIdTouserInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutApplication_application_reviewedByIdTouserInput, Prisma.UserUncheckedCreateWithoutApplication_application_reviewedByIdTouserInput>
+}
+
+export type UserUpsertWithoutApplication_application_clientUserIdTouserInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutApplication_application_clientUserIdTouserInput, Prisma.UserUncheckedUpdateWithoutApplication_application_clientUserIdTouserInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutApplication_application_clientUserIdTouserInput, Prisma.UserUncheckedCreateWithoutApplication_application_clientUserIdTouserInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutApplication_application_clientUserIdTouserInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutApplication_application_clientUserIdTouserInput, Prisma.UserUncheckedUpdateWithoutApplication_application_clientUserIdTouserInput>
+}
+
+export type UserUpdateWithoutApplication_application_clientUserIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutApplication_application_clientUserIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutApplication_application_reviewedByIdTouserInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutApplication_application_reviewedByIdTouserInput, Prisma.UserUncheckedUpdateWithoutApplication_application_reviewedByIdTouserInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutApplication_application_reviewedByIdTouserInput, Prisma.UserUncheckedCreateWithoutApplication_application_reviewedByIdTouserInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutApplication_application_reviewedByIdTouserInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutApplication_application_reviewedByIdTouserInput, Prisma.UserUncheckedUpdateWithoutApplication_application_reviewedByIdTouserInput>
+}
+
+export type UserUpdateWithoutApplication_application_reviewedByIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutApplication_application_reviewedByIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAudit_logInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAudit_logInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAudit_logInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAudit_logInput, Prisma.UserUncheckedCreateWithoutAudit_logInput>
+}
+
+export type UserUpsertWithoutAudit_logInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAudit_logInput, Prisma.UserUncheckedUpdateWithoutAudit_logInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAudit_logInput, Prisma.UserUncheckedCreateWithoutAudit_logInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAudit_logInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAudit_logInput, Prisma.UserUncheckedUpdateWithoutAudit_logInput>
+}
+
+export type UserUpdateWithoutAudit_logInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAudit_logInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutBranchInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutBranchInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutBranchInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBranchInput, Prisma.UserUncheckedCreateWithoutBranchInput>
+}
+
+export type UserCreateManyBranchInputEnvelope = {
+  data: Prisma.UserCreateManyBranchInput | Prisma.UserCreateManyBranchInput[]
+  skipDuplicates?: boolean
+}
+
+export type UserUpsertWithWhereUniqueWithoutBranchInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBranchInput, Prisma.UserUncheckedUpdateWithoutBranchInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBranchInput, Prisma.UserUncheckedCreateWithoutBranchInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutBranchInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBranchInput, Prisma.UserUncheckedUpdateWithoutBranchInput>
+}
+
+export type UserUpdateManyWithWhereWithoutBranchInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutBranchInput>
+}
+
+export type UserScalarWhereInput = {
+  AND?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  OR?: Prisma.UserScalarWhereInput[]
+  NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  id?: Prisma.StringFilter<"User"> | string
+  name?: Prisma.StringFilter<"User"> | string
+  email?: Prisma.StringFilter<"User"> | string
+  emailVerified?: Prisma.BoolFilter<"User"> | boolean
+  image?: Prisma.StringNullableFilter<"User"> | string | null
+  phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  twoFactorEnabled?: Prisma.BoolNullableFilter<"User"> | boolean | null
+  banned?: Prisma.BoolNullableFilter<"User"> | boolean | null
+  banReason?: Prisma.StringNullableFilter<"User"> | string | null
+  banExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  branchId?: Prisma.StringNullableFilter<"User"> | string | null
+  role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
+}
+
+export type UserCreateWithoutClient_subscriptionInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutClient_subscriptionInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutClient_subscriptionInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutClient_subscriptionInput, Prisma.UserUncheckedCreateWithoutClient_subscriptionInput>
+}
+
+export type UserUpsertWithoutClient_subscriptionInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutClient_subscriptionInput, Prisma.UserUncheckedUpdateWithoutClient_subscriptionInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutClient_subscriptionInput, Prisma.UserUncheckedCreateWithoutClient_subscriptionInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutClient_subscriptionInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutClient_subscriptionInput, Prisma.UserUncheckedUpdateWithoutClient_subscriptionInput>
+}
+
+export type UserUpdateWithoutClient_subscriptionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutClient_subscriptionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDeviceInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDeviceInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDeviceInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDeviceInput, Prisma.UserUncheckedCreateWithoutDeviceInput>
+}
+
+export type UserUpsertWithoutDeviceInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDeviceInput, Prisma.UserUncheckedUpdateWithoutDeviceInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDeviceInput, Prisma.UserUncheckedCreateWithoutDeviceInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDeviceInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDeviceInput, Prisma.UserUncheckedUpdateWithoutDeviceInput>
+}
+
+export type UserUpdateWithoutDeviceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDeviceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPayment_submission_payment_submission_reviewedByIdTouserInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput, Prisma.UserUncheckedCreateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput>
+}
+
+export type UserCreateWithoutPayment_submission_payment_submission_userIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPayment_submission_payment_submission_userIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPayment_submission_payment_submission_userIdTouserInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPayment_submission_payment_submission_userIdTouserInput, Prisma.UserUncheckedCreateWithoutPayment_submission_payment_submission_userIdTouserInput>
+}
+
+export type UserUpsertWithoutPayment_submission_payment_submission_reviewedByIdTouserInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput, Prisma.UserUncheckedUpdateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput, Prisma.UserUncheckedCreateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPayment_submission_payment_submission_reviewedByIdTouserInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput, Prisma.UserUncheckedUpdateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput>
+}
+
+export type UserUpdateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPayment_submission_payment_submission_reviewedByIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutPayment_submission_payment_submission_userIdTouserInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPayment_submission_payment_submission_userIdTouserInput, Prisma.UserUncheckedUpdateWithoutPayment_submission_payment_submission_userIdTouserInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPayment_submission_payment_submission_userIdTouserInput, Prisma.UserUncheckedCreateWithoutPayment_submission_payment_submission_userIdTouserInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPayment_submission_payment_submission_userIdTouserInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPayment_submission_payment_submission_userIdTouserInput, Prisma.UserUncheckedUpdateWithoutPayment_submission_payment_submission_userIdTouserInput>
+}
+
+export type UserUpdateWithoutPayment_submission_payment_submission_userIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPayment_submission_payment_submission_userIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSupport_ticket_support_ticket_assignedToIdTouserInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput, Prisma.UserUncheckedCreateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput>
+}
+
+export type UserCreateWithoutSupport_ticket_support_ticket_userIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSupport_ticket_support_ticket_userIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSupport_ticket_support_ticket_userIdTouserInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupport_ticket_support_ticket_userIdTouserInput, Prisma.UserUncheckedCreateWithoutSupport_ticket_support_ticket_userIdTouserInput>
+}
+
+export type UserUpsertWithoutSupport_ticket_support_ticket_assignedToIdTouserInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput, Prisma.UserUncheckedUpdateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput, Prisma.UserUncheckedCreateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSupport_ticket_support_ticket_assignedToIdTouserInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput, Prisma.UserUncheckedUpdateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput>
+}
+
+export type UserUpdateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSupport_ticket_support_ticket_assignedToIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutSupport_ticket_support_ticket_userIdTouserInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSupport_ticket_support_ticket_userIdTouserInput, Prisma.UserUncheckedUpdateWithoutSupport_ticket_support_ticket_userIdTouserInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupport_ticket_support_ticket_userIdTouserInput, Prisma.UserUncheckedCreateWithoutSupport_ticket_support_ticket_userIdTouserInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSupport_ticket_support_ticket_userIdTouserInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSupport_ticket_support_ticket_userIdTouserInput, Prisma.UserUncheckedUpdateWithoutSupport_ticket_support_ticket_userIdTouserInput>
+}
+
+export type UserUpdateWithoutSupport_ticket_support_ticket_userIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSupport_ticket_support_ticket_userIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSupport_ticket_messageInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  system_notification_setting?: Prisma.system_notification_settingCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSupport_ticket_messageInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSupport_ticket_messageInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupport_ticket_messageInput, Prisma.UserUncheckedCreateWithoutSupport_ticket_messageInput>
+}
+
+export type UserUpsertWithoutSupport_ticket_messageInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSupport_ticket_messageInput, Prisma.UserUncheckedUpdateWithoutSupport_ticket_messageInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupport_ticket_messageInput, Prisma.UserUncheckedCreateWithoutSupport_ticket_messageInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSupport_ticket_messageInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSupport_ticket_messageInput, Prisma.UserUncheckedUpdateWithoutSupport_ticket_messageInput>
+}
+
+export type UserUpdateWithoutSupport_ticket_messageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSupport_ticket_messageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSystem_notification_settingInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorCreateNestedManyWithoutUserInput
+  branch?: Prisma.branchCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSystem_notification_settingInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  branchId?: string | null
+  role?: $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedCreateNestedOneWithoutUser_application_clientUserIdTouserInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedCreateNestedManyWithoutUser_application_reviewedByIdTouserInput
+  audit_log?: Prisma.audit_logUncheckedCreateNestedManyWithoutUserInput
+  client_subscription?: Prisma.client_subscriptionUncheckedCreateNestedOneWithoutUserInput
+  device?: Prisma.deviceUncheckedCreateNestedManyWithoutUserInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_reviewedByIdTouserInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedCreateNestedManyWithoutUser_payment_submission_userIdTouserInput
+  request_log?: Prisma.RequestLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_assignedToIdTouserInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedCreateNestedManyWithoutUser_support_ticket_userIdTouserInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedCreateNestedManyWithoutUserInput
+  twofactors?: Prisma.TwoFactorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSystem_notification_settingInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSystem_notification_settingInput, Prisma.UserUncheckedCreateWithoutSystem_notification_settingInput>
+}
+
+export type UserUpsertWithoutSystem_notification_settingInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSystem_notification_settingInput, Prisma.UserUncheckedUpdateWithoutSystem_notification_settingInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSystem_notification_settingInput, Prisma.UserUncheckedCreateWithoutSystem_notification_settingInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSystem_notification_settingInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSystem_notification_settingInput, Prisma.UserUncheckedUpdateWithoutSystem_notification_settingInput>
+}
+
+export type UserUpdateWithoutSystem_notification_settingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+  branch?: Prisma.branchUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSystem_notification_settingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateManyBranchInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  phoneNumber?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  twoFactorEnabled?: boolean | null
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  role?: $Enums.UserRole
+}
+
+export type UserUpdateWithoutBranchInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBranchInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  application_application_clientUserIdTouser?: Prisma.applicationUncheckedUpdateOneWithoutUser_application_clientUserIdTouserNestedInput
+  application_application_reviewedByIdTouser?: Prisma.applicationUncheckedUpdateManyWithoutUser_application_reviewedByIdTouserNestedInput
+  audit_log?: Prisma.audit_logUncheckedUpdateManyWithoutUserNestedInput
+  client_subscription?: Prisma.client_subscriptionUncheckedUpdateOneWithoutUserNestedInput
+  device?: Prisma.deviceUncheckedUpdateManyWithoutUserNestedInput
+  payment_submission_payment_submission_reviewedByIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_reviewedByIdTouserNestedInput
+  payment_submission_payment_submission_userIdTouser?: Prisma.payment_submissionUncheckedUpdateManyWithoutUser_payment_submission_userIdTouserNestedInput
+  request_log?: Prisma.RequestLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_support_ticket_assignedToIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_assignedToIdTouserNestedInput
+  support_ticket_support_ticket_userIdTouser?: Prisma.support_ticketUncheckedUpdateManyWithoutUser_support_ticket_userIdTouserNestedInput
+  support_ticket_message?: Prisma.support_ticket_messageUncheckedUpdateManyWithoutUserNestedInput
+  system_notification_setting?: Prisma.system_notification_settingUncheckedUpdateManyWithoutUserNestedInput
+  twofactors?: Prisma.TwoFactorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutBranchInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  twoFactorEnabled?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
 }
 
 
@@ -878,13 +3330,33 @@ export type UserUncheckedUpdateWithoutTwofactorsInput = {
 
 export type UserCountOutputType = {
   accounts: number
+  application_application_reviewedByIdTouser: number
+  audit_log: number
+  device: number
+  payment_submission_payment_submission_reviewedByIdTouser: number
+  payment_submission_payment_submission_userIdTouser: number
+  request_log: number
   sessions: number
+  support_ticket_support_ticket_assignedToIdTouser: number
+  support_ticket_support_ticket_userIdTouser: number
+  support_ticket_message: number
+  system_notification_setting: number
   twofactors: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
+  application_application_reviewedByIdTouser?: boolean | UserCountOutputTypeCountApplication_application_reviewedByIdTouserArgs
+  audit_log?: boolean | UserCountOutputTypeCountAudit_logArgs
+  device?: boolean | UserCountOutputTypeCountDeviceArgs
+  payment_submission_payment_submission_reviewedByIdTouser?: boolean | UserCountOutputTypeCountPayment_submission_payment_submission_reviewedByIdTouserArgs
+  payment_submission_payment_submission_userIdTouser?: boolean | UserCountOutputTypeCountPayment_submission_payment_submission_userIdTouserArgs
+  request_log?: boolean | UserCountOutputTypeCountRequest_logArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  support_ticket_support_ticket_assignedToIdTouser?: boolean | UserCountOutputTypeCountSupport_ticket_support_ticket_assignedToIdTouserArgs
+  support_ticket_support_ticket_userIdTouser?: boolean | UserCountOutputTypeCountSupport_ticket_support_ticket_userIdTouserArgs
+  support_ticket_message?: boolean | UserCountOutputTypeCountSupport_ticket_messageArgs
+  system_notification_setting?: boolean | UserCountOutputTypeCountSystem_notification_settingArgs
   twofactors?: boolean | UserCountOutputTypeCountTwofactorsArgs
 }
 
@@ -908,8 +3380,78 @@ export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.E
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountApplication_application_reviewedByIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.applicationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAudit_logArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.audit_logWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDeviceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.deviceWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPayment_submission_payment_submission_reviewedByIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.payment_submissionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPayment_submission_payment_submission_userIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.payment_submissionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRequest_logArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RequestLogWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSupport_ticket_support_ticket_assignedToIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.support_ticketWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSupport_ticket_support_ticket_userIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.support_ticketWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSupport_ticket_messageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.support_ticket_messageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSystem_notification_settingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.system_notification_settingWhereInput
 }
 
 /**
@@ -926,18 +3468,32 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  phoneNumber?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   twoFactorEnabled?: boolean
-  role?: boolean
   banned?: boolean
   banReason?: boolean
   banExpires?: boolean
-  phoneNumber?: boolean
-  deletedAt?: boolean
+  branchId?: boolean
+  role?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  application_application_clientUserIdTouser?: boolean | Prisma.User$application_application_clientUserIdTouserArgs<ExtArgs>
+  application_application_reviewedByIdTouser?: boolean | Prisma.User$application_application_reviewedByIdTouserArgs<ExtArgs>
+  audit_log?: boolean | Prisma.User$audit_logArgs<ExtArgs>
+  client_subscription?: boolean | Prisma.User$client_subscriptionArgs<ExtArgs>
+  device?: boolean | Prisma.User$deviceArgs<ExtArgs>
+  payment_submission_payment_submission_reviewedByIdTouser?: boolean | Prisma.User$payment_submission_payment_submission_reviewedByIdTouserArgs<ExtArgs>
+  payment_submission_payment_submission_userIdTouser?: boolean | Prisma.User$payment_submission_payment_submission_userIdTouserArgs<ExtArgs>
+  request_log?: boolean | Prisma.User$request_logArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  support_ticket_support_ticket_assignedToIdTouser?: boolean | Prisma.User$support_ticket_support_ticket_assignedToIdTouserArgs<ExtArgs>
+  support_ticket_support_ticket_userIdTouser?: boolean | Prisma.User$support_ticket_support_ticket_userIdTouserArgs<ExtArgs>
+  support_ticket_message?: boolean | Prisma.User$support_ticket_messageArgs<ExtArgs>
+  system_notification_setting?: boolean | Prisma.User$system_notification_settingArgs<ExtArgs>
   twofactors?: boolean | Prisma.User$twofactorsArgs<ExtArgs>
+  branch?: boolean | Prisma.User$branchArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -947,15 +3503,17 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  phoneNumber?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   twoFactorEnabled?: boolean
-  role?: boolean
   banned?: boolean
   banReason?: boolean
   banExpires?: boolean
-  phoneNumber?: boolean
-  deletedAt?: boolean
+  branchId?: boolean
+  role?: boolean
+  branch?: boolean | Prisma.User$branchArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -964,15 +3522,17 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  phoneNumber?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   twoFactorEnabled?: boolean
-  role?: boolean
   banned?: boolean
   banReason?: boolean
   banExpires?: boolean
-  phoneNumber?: boolean
-  deletedAt?: boolean
+  branchId?: boolean
+  role?: boolean
+  branch?: boolean | Prisma.User$branchArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -981,33 +3541,64 @@ export type UserSelectScalar = {
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  phoneNumber?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   twoFactorEnabled?: boolean
-  role?: boolean
   banned?: boolean
   banReason?: boolean
   banExpires?: boolean
-  phoneNumber?: boolean
-  deletedAt?: boolean
+  branchId?: boolean
+  role?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "twoFactorEnabled" | "role" | "banned" | "banReason" | "banExpires" | "phoneNumber" | "deletedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "phoneNumber" | "deletedAt" | "createdAt" | "updatedAt" | "twoFactorEnabled" | "banned" | "banReason" | "banExpires" | "branchId" | "role", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  application_application_clientUserIdTouser?: boolean | Prisma.User$application_application_clientUserIdTouserArgs<ExtArgs>
+  application_application_reviewedByIdTouser?: boolean | Prisma.User$application_application_reviewedByIdTouserArgs<ExtArgs>
+  audit_log?: boolean | Prisma.User$audit_logArgs<ExtArgs>
+  client_subscription?: boolean | Prisma.User$client_subscriptionArgs<ExtArgs>
+  device?: boolean | Prisma.User$deviceArgs<ExtArgs>
+  payment_submission_payment_submission_reviewedByIdTouser?: boolean | Prisma.User$payment_submission_payment_submission_reviewedByIdTouserArgs<ExtArgs>
+  payment_submission_payment_submission_userIdTouser?: boolean | Prisma.User$payment_submission_payment_submission_userIdTouserArgs<ExtArgs>
+  request_log?: boolean | Prisma.User$request_logArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  support_ticket_support_ticket_assignedToIdTouser?: boolean | Prisma.User$support_ticket_support_ticket_assignedToIdTouserArgs<ExtArgs>
+  support_ticket_support_ticket_userIdTouser?: boolean | Prisma.User$support_ticket_support_ticket_userIdTouserArgs<ExtArgs>
+  support_ticket_message?: boolean | Prisma.User$support_ticket_messageArgs<ExtArgs>
+  system_notification_setting?: boolean | Prisma.User$system_notification_settingArgs<ExtArgs>
   twofactors?: boolean | Prisma.User$twofactorsArgs<ExtArgs>
+  branch?: boolean | Prisma.User$branchArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  branch?: boolean | Prisma.User$branchArgs<ExtArgs>
+}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  branch?: boolean | Prisma.User$branchArgs<ExtArgs>
+}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
     accounts: Prisma.$AccountPayload<ExtArgs>[]
+    application_application_clientUserIdTouser: Prisma.$applicationPayload<ExtArgs> | null
+    application_application_reviewedByIdTouser: Prisma.$applicationPayload<ExtArgs>[]
+    audit_log: Prisma.$audit_logPayload<ExtArgs>[]
+    client_subscription: Prisma.$client_subscriptionPayload<ExtArgs> | null
+    device: Prisma.$devicePayload<ExtArgs>[]
+    payment_submission_payment_submission_reviewedByIdTouser: Prisma.$payment_submissionPayload<ExtArgs>[]
+    payment_submission_payment_submission_userIdTouser: Prisma.$payment_submissionPayload<ExtArgs>[]
+    request_log: Prisma.$RequestLogPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
+    support_ticket_support_ticket_assignedToIdTouser: Prisma.$support_ticketPayload<ExtArgs>[]
+    support_ticket_support_ticket_userIdTouser: Prisma.$support_ticketPayload<ExtArgs>[]
+    support_ticket_message: Prisma.$support_ticket_messagePayload<ExtArgs>[]
+    system_notification_setting: Prisma.$system_notification_settingPayload<ExtArgs>[]
     twofactors: Prisma.$TwoFactorPayload<ExtArgs>[]
+    branch: Prisma.$branchPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1015,15 +3606,16 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     email: string
     emailVerified: boolean
     image: string | null
+    phoneNumber: string | null
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
     twoFactorEnabled: boolean | null
-    role: string | null
     banned: boolean | null
     banReason: string | null
     banExpires: Date | null
-    phoneNumber: string | null
-    deletedAt: Date | null
+    branchId: string | null
+    role: $Enums.UserRole
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1419,8 +4011,21 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  application_application_clientUserIdTouser<T extends Prisma.User$application_application_clientUserIdTouserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$application_application_clientUserIdTouserArgs<ExtArgs>>): Prisma.Prisma__applicationClient<runtime.Types.Result.GetResult<Prisma.$applicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  application_application_reviewedByIdTouser<T extends Prisma.User$application_application_reviewedByIdTouserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$application_application_reviewedByIdTouserArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$applicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  audit_log<T extends Prisma.User$audit_logArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$audit_logArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$audit_logPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  client_subscription<T extends Prisma.User$client_subscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$client_subscriptionArgs<ExtArgs>>): Prisma.Prisma__client_subscriptionClient<runtime.Types.Result.GetResult<Prisma.$client_subscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  device<T extends Prisma.User$deviceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deviceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$devicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payment_submission_payment_submission_reviewedByIdTouser<T extends Prisma.User$payment_submission_payment_submission_reviewedByIdTouserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$payment_submission_payment_submission_reviewedByIdTouserArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$payment_submissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payment_submission_payment_submission_userIdTouser<T extends Prisma.User$payment_submission_payment_submission_userIdTouserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$payment_submission_payment_submission_userIdTouserArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$payment_submissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  request_log<T extends Prisma.User$request_logArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$request_logArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequestLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  support_ticket_support_ticket_assignedToIdTouser<T extends Prisma.User$support_ticket_support_ticket_assignedToIdTouserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$support_ticket_support_ticket_assignedToIdTouserArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$support_ticketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  support_ticket_support_ticket_userIdTouser<T extends Prisma.User$support_ticket_support_ticket_userIdTouserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$support_ticket_support_ticket_userIdTouserArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$support_ticketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  support_ticket_message<T extends Prisma.User$support_ticket_messageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$support_ticket_messageArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$support_ticket_messagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  system_notification_setting<T extends Prisma.User$system_notification_settingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$system_notification_settingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$system_notification_settingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   twofactors<T extends Prisma.User$twofactorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$twofactorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TwoFactorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  branch<T extends Prisma.User$branchArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$branchArgs<ExtArgs>>): Prisma.Prisma__branchClient<runtime.Types.Result.GetResult<Prisma.$branchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1455,15 +4060,16 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly image: Prisma.FieldRef<"User", 'String'>
+  readonly phoneNumber: Prisma.FieldRef<"User", 'String'>
+  readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly twoFactorEnabled: Prisma.FieldRef<"User", 'Boolean'>
-  readonly role: Prisma.FieldRef<"User", 'String'>
   readonly banned: Prisma.FieldRef<"User", 'Boolean'>
   readonly banReason: Prisma.FieldRef<"User", 'String'>
   readonly banExpires: Prisma.FieldRef<"User", 'DateTime'>
-  readonly phoneNumber: Prisma.FieldRef<"User", 'String'>
-  readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly branchId: Prisma.FieldRef<"User", 'String'>
+  readonly role: Prisma.FieldRef<"User", 'UserRole'>
 }
     
 
@@ -1713,6 +4319,10 @@ export type UserCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    */
   data: Prisma.UserCreateManyInput | Prisma.UserCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1783,6 +4393,10 @@ export type UserUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many Users to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1876,6 +4490,188 @@ export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
+ * User.application_application_clientUserIdTouser
+ */
+export type User$application_application_clientUserIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the application
+   */
+  select?: Prisma.applicationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the application
+   */
+  omit?: Prisma.applicationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.applicationInclude<ExtArgs> | null
+  where?: Prisma.applicationWhereInput
+}
+
+/**
+ * User.application_application_reviewedByIdTouser
+ */
+export type User$application_application_reviewedByIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the application
+   */
+  select?: Prisma.applicationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the application
+   */
+  omit?: Prisma.applicationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.applicationInclude<ExtArgs> | null
+  where?: Prisma.applicationWhereInput
+  orderBy?: Prisma.applicationOrderByWithRelationInput | Prisma.applicationOrderByWithRelationInput[]
+  cursor?: Prisma.applicationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ApplicationScalarFieldEnum | Prisma.ApplicationScalarFieldEnum[]
+}
+
+/**
+ * User.audit_log
+ */
+export type User$audit_logArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the audit_log
+   */
+  select?: Prisma.audit_logSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the audit_log
+   */
+  omit?: Prisma.audit_logOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.audit_logInclude<ExtArgs> | null
+  where?: Prisma.audit_logWhereInput
+  orderBy?: Prisma.audit_logOrderByWithRelationInput | Prisma.audit_logOrderByWithRelationInput[]
+  cursor?: Prisma.audit_logWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Audit_logScalarFieldEnum | Prisma.Audit_logScalarFieldEnum[]
+}
+
+/**
+ * User.client_subscription
+ */
+export type User$client_subscriptionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the client_subscription
+   */
+  select?: Prisma.client_subscriptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the client_subscription
+   */
+  omit?: Prisma.client_subscriptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_subscriptionInclude<ExtArgs> | null
+  where?: Prisma.client_subscriptionWhereInput
+}
+
+/**
+ * User.device
+ */
+export type User$deviceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the device
+   */
+  select?: Prisma.deviceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the device
+   */
+  omit?: Prisma.deviceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.deviceInclude<ExtArgs> | null
+  where?: Prisma.deviceWhereInput
+  orderBy?: Prisma.deviceOrderByWithRelationInput | Prisma.deviceOrderByWithRelationInput[]
+  cursor?: Prisma.deviceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DeviceScalarFieldEnum | Prisma.DeviceScalarFieldEnum[]
+}
+
+/**
+ * User.payment_submission_payment_submission_reviewedByIdTouser
+ */
+export type User$payment_submission_payment_submission_reviewedByIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the payment_submission
+   */
+  select?: Prisma.payment_submissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the payment_submission
+   */
+  omit?: Prisma.payment_submissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.payment_submissionInclude<ExtArgs> | null
+  where?: Prisma.payment_submissionWhereInput
+  orderBy?: Prisma.payment_submissionOrderByWithRelationInput | Prisma.payment_submissionOrderByWithRelationInput[]
+  cursor?: Prisma.payment_submissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Payment_submissionScalarFieldEnum | Prisma.Payment_submissionScalarFieldEnum[]
+}
+
+/**
+ * User.payment_submission_payment_submission_userIdTouser
+ */
+export type User$payment_submission_payment_submission_userIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the payment_submission
+   */
+  select?: Prisma.payment_submissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the payment_submission
+   */
+  omit?: Prisma.payment_submissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.payment_submissionInclude<ExtArgs> | null
+  where?: Prisma.payment_submissionWhereInput
+  orderBy?: Prisma.payment_submissionOrderByWithRelationInput | Prisma.payment_submissionOrderByWithRelationInput[]
+  cursor?: Prisma.payment_submissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Payment_submissionScalarFieldEnum | Prisma.Payment_submissionScalarFieldEnum[]
+}
+
+/**
+ * User.request_log
+ */
+export type User$request_logArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RequestLog
+   */
+  select?: Prisma.RequestLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RequestLog
+   */
+  omit?: Prisma.RequestLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestLogInclude<ExtArgs> | null
+  where?: Prisma.RequestLogWhereInput
+  orderBy?: Prisma.RequestLogOrderByWithRelationInput | Prisma.RequestLogOrderByWithRelationInput[]
+  cursor?: Prisma.RequestLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RequestLogScalarFieldEnum | Prisma.RequestLogScalarFieldEnum[]
+}
+
+/**
  * User.sessions
  */
 export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1900,6 +4696,102 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
+ * User.support_ticket_support_ticket_assignedToIdTouser
+ */
+export type User$support_ticket_support_ticket_assignedToIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the support_ticket
+   */
+  select?: Prisma.support_ticketSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the support_ticket
+   */
+  omit?: Prisma.support_ticketOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.support_ticketInclude<ExtArgs> | null
+  where?: Prisma.support_ticketWhereInput
+  orderBy?: Prisma.support_ticketOrderByWithRelationInput | Prisma.support_ticketOrderByWithRelationInput[]
+  cursor?: Prisma.support_ticketWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Support_ticketScalarFieldEnum | Prisma.Support_ticketScalarFieldEnum[]
+}
+
+/**
+ * User.support_ticket_support_ticket_userIdTouser
+ */
+export type User$support_ticket_support_ticket_userIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the support_ticket
+   */
+  select?: Prisma.support_ticketSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the support_ticket
+   */
+  omit?: Prisma.support_ticketOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.support_ticketInclude<ExtArgs> | null
+  where?: Prisma.support_ticketWhereInput
+  orderBy?: Prisma.support_ticketOrderByWithRelationInput | Prisma.support_ticketOrderByWithRelationInput[]
+  cursor?: Prisma.support_ticketWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Support_ticketScalarFieldEnum | Prisma.Support_ticketScalarFieldEnum[]
+}
+
+/**
+ * User.support_ticket_message
+ */
+export type User$support_ticket_messageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the support_ticket_message
+   */
+  select?: Prisma.support_ticket_messageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the support_ticket_message
+   */
+  omit?: Prisma.support_ticket_messageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.support_ticket_messageInclude<ExtArgs> | null
+  where?: Prisma.support_ticket_messageWhereInput
+  orderBy?: Prisma.support_ticket_messageOrderByWithRelationInput | Prisma.support_ticket_messageOrderByWithRelationInput[]
+  cursor?: Prisma.support_ticket_messageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Support_ticket_messageScalarFieldEnum | Prisma.Support_ticket_messageScalarFieldEnum[]
+}
+
+/**
+ * User.system_notification_setting
+ */
+export type User$system_notification_settingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the system_notification_setting
+   */
+  select?: Prisma.system_notification_settingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the system_notification_setting
+   */
+  omit?: Prisma.system_notification_settingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.system_notification_settingInclude<ExtArgs> | null
+  where?: Prisma.system_notification_settingWhereInput
+  orderBy?: Prisma.system_notification_settingOrderByWithRelationInput | Prisma.system_notification_settingOrderByWithRelationInput[]
+  cursor?: Prisma.system_notification_settingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.System_notification_settingScalarFieldEnum | Prisma.System_notification_settingScalarFieldEnum[]
+}
+
+/**
  * User.twofactors
  */
 export type User$twofactorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1921,6 +4813,25 @@ export type User$twofactorsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.TwoFactorScalarFieldEnum | Prisma.TwoFactorScalarFieldEnum[]
+}
+
+/**
+ * User.branch
+ */
+export type User$branchArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the branch
+   */
+  select?: Prisma.branchSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the branch
+   */
+  omit?: Prisma.branchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.branchInclude<ExtArgs> | null
+  where?: Prisma.branchWhereInput
 }
 
 /**

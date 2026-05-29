@@ -55,7 +55,19 @@ export const ModelName = {
   Verification: 'Verification',
   TwoFactor: 'TwoFactor',
   RequestLog: 'RequestLog',
-  Settings: 'Settings'
+  Settings: 'Settings',
+  application: 'application',
+  audit_log: 'audit_log',
+  branch: 'branch',
+  client_subscription: 'client_subscription',
+  device: 'device',
+  payment_submission: 'payment_submission',
+  subscription_plan: 'subscription_plan',
+  support_ticket: 'support_ticket',
+  support_ticket_message: 'support_ticket_message',
+  system_notification_setting: 'system_notification_setting',
+  ContactMessage: 'ContactMessage',
+  preorder_application: 'preorder_application'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -80,15 +92,16 @@ export const UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
+  phoneNumber: 'phoneNumber',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   twoFactorEnabled: 'twoFactorEnabled',
-  role: 'role',
   banned: 'banned',
   banReason: 'banReason',
   banExpires: 'banExpires',
-  phoneNumber: 'phoneNumber',
-  deletedAt: 'deletedAt'
+  branchId: 'branchId',
+  role: 'role'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -158,6 +171,7 @@ export const RequestLogScalarFieldEnum = {
   query: 'query',
   headers: 'headers',
   payload: 'payload',
+  userId: 'userId',
   createdAt: 'createdAt'
 } as const
 
@@ -167,11 +181,248 @@ export type RequestLogScalarFieldEnum = (typeof RequestLogScalarFieldEnum)[keyof
 export const SettingsScalarFieldEnum = {
   id: 'id',
   pricePerKilowattHour: 'pricePerKilowattHour',
+  platformName: 'platformName',
+  supportEmail: 'supportEmail',
+  maintenanceMode: 'maintenanceMode',
+  downpaymentAmountPerDevice: 'downpaymentAmountPerDevice',
+  loginLockoutThreshold: 'loginLockoutThreshold',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type SettingsScalarFieldEnum = (typeof SettingsScalarFieldEnum)[keyof typeof SettingsScalarFieldEnum]
+
+
+export const ApplicationScalarFieldEnum = {
+  id: 'id',
+  ticketNumber: 'ticketNumber',
+  fullName: 'fullName',
+  email: 'email',
+  phoneNumber: 'phoneNumber',
+  planId: 'planId',
+  deviceCount: 'deviceCount',
+  specialRequirements: 'specialRequirements',
+  proofOfBillingFileName: 'proofOfBillingFileName',
+  proofOfBillingUrl: 'proofOfBillingUrl',
+  proofOfBillingMimeType: 'proofOfBillingMimeType',
+  validIdFrontFileName: 'validIdFrontFileName',
+  validIdFrontUrl: 'validIdFrontUrl',
+  validIdFrontMimeType: 'validIdFrontMimeType',
+  validIdBackFileName: 'validIdBackFileName',
+  validIdBackUrl: 'validIdBackUrl',
+  validIdBackMimeType: 'validIdBackMimeType',
+  status: 'status',
+  statusReason: 'statusReason',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  approvedAt: 'approvedAt',
+  rejectedAt: 'rejectedAt',
+  submittedAt: 'submittedAt',
+  updatedAt: 'updatedAt',
+  branchId: 'branchId',
+  clientUserId: 'clientUserId',
+  branchSnapshots: 'branchSnapshots'
+} as const
+
+export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
+
+
+export const Audit_logScalarFieldEnum = {
+  id: 'id',
+  actorId: 'actorId',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  action: 'action',
+  beforeState: 'beforeState',
+  afterState: 'afterState',
+  metadata: 'metadata',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+} as const
+
+export type Audit_logScalarFieldEnum = (typeof Audit_logScalarFieldEnum)[keyof typeof Audit_logScalarFieldEnum]
+
+
+export const BranchScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  address: 'address',
+  city: 'city',
+  province: 'province',
+  contactName: 'contactName',
+  contactEmail: 'contactEmail',
+  contactPhone: 'contactPhone',
+  status: 'status',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BranchScalarFieldEnum = (typeof BranchScalarFieldEnum)[keyof typeof BranchScalarFieldEnum]
+
+
+export const Client_subscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  planId: 'planId',
+  sourceApplicationId: 'sourceApplicationId',
+  deviceCap: 'deviceCap',
+  monthlyPrice: 'monthlyPrice',
+  billingCycleDay: 'billingCycleDay',
+  nextDueDate: 'nextDueDate',
+  status: 'status',
+  startedAt: 'startedAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Client_subscriptionScalarFieldEnum = (typeof Client_subscriptionScalarFieldEnum)[keyof typeof Client_subscriptionScalarFieldEnum]
+
+
+export const DeviceScalarFieldEnum = {
+  id: 'id',
+  serialNumber: 'serialNumber',
+  name: 'name',
+  locationLabel: 'locationLabel',
+  tags: 'tags',
+  status: 'status',
+  firmwareVersion: 'firmwareVersion',
+  lastSeenAt: 'lastSeenAt',
+  installedAt: 'installedAt',
+  decommissionedAt: 'decommissionedAt',
+  branchId: 'branchId',
+  userId: 'userId',
+  subscriptionId: 'subscriptionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DeviceScalarFieldEnum = (typeof DeviceScalarFieldEnum)[keyof typeof DeviceScalarFieldEnum]
+
+
+export const Payment_submissionScalarFieldEnum = {
+  id: 'id',
+  referenceNumber: 'referenceNumber',
+  billingMonth: 'billingMonth',
+  amount: 'amount',
+  proofFileName: 'proofFileName',
+  proofFileUrl: 'proofFileUrl',
+  proofMimeType: 'proofMimeType',
+  status: 'status',
+  submittedAt: 'submittedAt',
+  reviewedAt: 'reviewedAt',
+  reviewedById: 'reviewedById',
+  reviewNote: 'reviewNote',
+  userId: 'userId',
+  subscriptionId: 'subscriptionId',
+  applicationId: 'applicationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Payment_submissionScalarFieldEnum = (typeof Payment_submissionScalarFieldEnum)[keyof typeof Payment_submissionScalarFieldEnum]
+
+
+export const Subscription_planScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  monthlyPrice: 'monthlyPrice',
+  deviceCap: 'deviceCap',
+  description: 'description',
+  features: 'features',
+  isPopular: 'isPopular',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Subscription_planScalarFieldEnum = (typeof Subscription_planScalarFieldEnum)[keyof typeof Subscription_planScalarFieldEnum]
+
+
+export const Support_ticketScalarFieldEnum = {
+  id: 'id',
+  ticketNumber: 'ticketNumber',
+  name: 'name',
+  email: 'email',
+  subject: 'subject',
+  category: 'category',
+  message: 'message',
+  status: 'status',
+  priority: 'priority',
+  userId: 'userId',
+  assignedToId: 'assignedToId',
+  resolvedAt: 'resolvedAt',
+  closedAt: 'closedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Support_ticketScalarFieldEnum = (typeof Support_ticketScalarFieldEnum)[keyof typeof Support_ticketScalarFieldEnum]
+
+
+export const Support_ticket_messageScalarFieldEnum = {
+  id: 'id',
+  ticketId: 'ticketId',
+  authorId: 'authorId',
+  authorName: 'authorName',
+  message: 'message',
+  isInternal: 'isInternal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Support_ticket_messageScalarFieldEnum = (typeof Support_ticket_messageScalarFieldEnum)[keyof typeof Support_ticket_messageScalarFieldEnum]
+
+
+export const System_notification_settingScalarFieldEnum = {
+  id: 'id',
+  emailEnabled: 'emailEnabled',
+  pushEnabled: 'pushEnabled',
+  inAppEnabled: 'inAppEnabled',
+  newApplicationAlerts: 'newApplicationAlerts',
+  paymentAlerts: 'paymentAlerts',
+  deviceAlerts: 'deviceAlerts',
+  ticketAlerts: 'ticketAlerts',
+  quietHoursStart: 'quietHoursStart',
+  quietHoursEnd: 'quietHoursEnd',
+  updatedById: 'updatedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type System_notification_settingScalarFieldEnum = (typeof System_notification_settingScalarFieldEnum)[keyof typeof System_notification_settingScalarFieldEnum]
+
+
+export const ContactMessageScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  inquiryType: 'inquiryType',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
+
+
+export const Preorder_applicationScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  phoneNumber: 'phoneNumber',
+  plan: 'plan',
+  deviceCount: 'deviceCount',
+  branches: 'branches',
+  specialRequirements: 'specialRequirements',
+  proofBillingFileName: 'proofBillingFileName',
+  validIdFrontFileName: 'validIdFrontFileName',
+  validIdBackFileName: 'validIdBackFileName',
+  createdAt: 'createdAt'
+} as const
+
+export type Preorder_applicationScalarFieldEnum = (typeof Preorder_applicationScalarFieldEnum)[keyof typeof Preorder_applicationScalarFieldEnum]
 
 
 export const SortOrder = {
